@@ -20,45 +20,63 @@ TEST_PROGRAM("libbpf-bootstrap", "usdt.bpf.o", ".text", "bpf_usdt_arg_cnt", 3)
 TEST_PROGRAM("libbpf-bootstrap", "usdt.bpf.o", ".text", "bpf_usdt_cookie", 3)
 
 // VerifierTypeTracking:
-// register type refinement is too imprecise in this control-flow pattern
-TEST_SECTION_FAIL("libbpf-bootstrap", "bootstrap_legacy.bpf.o", "tp/sched/sched_process_exec",
+// Known verifier limitation: register type refinement is too imprecise in this control-flow pattern. Diagnostic: 27: Invalid type (r7.type in {ctx, stack, packet, shared})
+TEST_SECTION_FAIL("libbpf-bootstrap",
+                  "bootstrap.bpf.o",
+                  "tp/sched/sched_process_exec",
                   verify_test::VerifyIssueKind::VerifierTypeTracking)
-// register type refinement is too imprecise in this control-flow pattern
-TEST_PROGRAM_FAIL("libbpf-bootstrap", "usdt.bpf.o", ".text", "bpf_usdt_arg", 3,
+// Known verifier limitation: register type refinement is too imprecise in this control-flow pattern. Diagnostic: 43: Invalid type (r6.type in {ctx, stack, packet, shared})
+TEST_SECTION_FAIL("libbpf-bootstrap",
+                  "bootstrap.bpf.o",
+                  "tp/sched/sched_process_exit",
                   verify_test::VerifyIssueKind::VerifierTypeTracking)
-// register type refinement is too imprecise in this control-flow pattern
+// Known verifier limitation: register type refinement is too imprecise in this control-flow pattern. Diagnostic: 70: Invalid type (r3.type == number)
+TEST_SECTION_FAIL("libbpf-bootstrap",
+                  "bootstrap_legacy.bpf.o",
+                  "tp/sched/sched_process_exec",
+                  verify_test::VerifyIssueKind::VerifierTypeTracking)
+// Known verifier limitation: register type refinement is too imprecise in this control-flow pattern. Diagnostic: 2: Invalid type (r6.type in {ctx, stack, packet, shared})
+TEST_SECTION_FAIL("libbpf-bootstrap",
+                  "fentry.bpf.o",
+                  "fentry/do_unlinkat",
+                  verify_test::VerifyIssueKind::VerifierTypeTracking)
+// Known verifier limitation: register type refinement is too imprecise in this control-flow pattern. Diagnostic: 3: Invalid type (r7.type in {ctx, stack, packet, shared})
+TEST_SECTION_FAIL("libbpf-bootstrap",
+                  "fentry.bpf.o",
+                  "fexit/do_unlinkat",
+                  verify_test::VerifyIssueKind::VerifierTypeTracking)
+// Known verifier limitation: register type refinement is too imprecise in this control-flow pattern. Diagnostic: 13: Invalid type (r7.type in {ctx, stack, packet, shared})
+TEST_SECTION_FAIL("libbpf-bootstrap", "profile.bpf.o", "perf_event", verify_test::VerifyIssueKind::VerifierTypeTracking)
+// Known verifier limitation: register type refinement is too imprecise in this control-flow pattern. Diagnostic: 29: Invalid type (r3.type in {number, ctx, stack, packet, shared})
+TEST_SECTION_FAIL("libbpf-bootstrap", "sockfilter.bpf.o", "socket", verify_test::VerifyIssueKind::VerifierTypeTracking)
+// Known verifier limitation: register type refinement is too imprecise in this control-flow pattern. Diagnostic: 1: Invalid type (r2.type in {ctx, stack, packet, shared})
+TEST_SECTION_FAIL("libbpf-bootstrap",
+                  "task_iter.bpf.o",
+                  "iter/task",
+                  verify_test::VerifyIssueKind::VerifierTypeTracking)
+// Known verifier limitation: register type refinement is too imprecise in this control-flow pattern. Diagnostic: 4: Invalid type (r6.type in {ctx, stack, packet, shared})
+TEST_PROGRAM_FAIL("libbpf-bootstrap",
+                  "usdt.bpf.o",
+                  ".text",
+                  "bpf_usdt_arg",
+                  3,
+                  verify_test::VerifyIssueKind::VerifierTypeTracking)
+// Known verifier limitation: register type refinement is too imprecise in this control-flow pattern. Diagnostic: 10/83: Invalid type (r3.type == number)
 TEST_SECTION_FAIL("libbpf-bootstrap", "usdt.bpf.o", "usdt", verify_test::VerifyIssueKind::VerifierTypeTracking)
-// register type refinement is too imprecise in this control-flow pattern
-TEST_SECTION_FAIL("libbpf-bootstrap", "usdt.bpf.o", "usdt/libc.so.6:libc:setjmp",
+// Known verifier limitation: register type refinement is too imprecise in this control-flow pattern. Diagnostic: 10/90: Invalid type (r3.type == number)
+TEST_SECTION_FAIL("libbpf-bootstrap",
+                  "usdt.bpf.o",
+                  "usdt/libc.so.6:libc:setjmp",
                   verify_test::VerifyIssueKind::VerifierTypeTracking)
-
-// VerifierBoundsTracking:
-// interval/bounds refinement loses precision for this memory-access proof
-TEST_SECTION_FAIL("libbpf-bootstrap", "bootstrap.bpf.o", "tp/sched/sched_process_exec",
-                  verify_test::VerifyIssueKind::VerifierBoundsTracking)
-// interval/bounds refinement loses precision for this memory-access proof
-TEST_SECTION_FAIL("libbpf-bootstrap", "bootstrap.bpf.o", "tp/sched/sched_process_exit",
-                  verify_test::VerifyIssueKind::VerifierBoundsTracking)
-// interval/bounds refinement loses precision for this memory-access proof
-TEST_SECTION_FAIL("libbpf-bootstrap", "fentry.bpf.o", "fentry/do_unlinkat",
-                  verify_test::VerifyIssueKind::VerifierBoundsTracking)
-// interval/bounds refinement loses precision for this memory-access proof
-TEST_SECTION_FAIL("libbpf-bootstrap", "fentry.bpf.o", "fexit/do_unlinkat",
-                  verify_test::VerifyIssueKind::VerifierBoundsTracking)
-// interval/bounds refinement loses precision for this memory-access proof
-TEST_SECTION_FAIL("libbpf-bootstrap", "profile.bpf.o", "perf_event",
-                  verify_test::VerifyIssueKind::VerifierBoundsTracking)
-// interval/bounds refinement loses precision for this memory-access proof
-TEST_SECTION_FAIL("libbpf-bootstrap", "sockfilter.bpf.o", "socket",
-                  verify_test::VerifyIssueKind::VerifierBoundsTracking)
-// interval/bounds refinement loses precision for this memory-access proof
-TEST_SECTION_FAIL("libbpf-bootstrap", "task_iter.bpf.o", "iter/task",
-                  verify_test::VerifyIssueKind::VerifierBoundsTracking)
 
 // VerifierStackInitialization:
-// stack initialization tracking is too coarse for this access path
-TEST_SECTION_FAIL("libbpf-bootstrap", "ksyscall.bpf.o", "ksyscall/kill",
+// Known verifier limitation: stack initialization tracking is too coarse for this access path. Diagnostic: 54: Stack content is not numeric ((r3.type == number and r3.value == 0) or valid_access(r3.offset, width=r4) for read)
+TEST_SECTION_FAIL("libbpf-bootstrap",
+                  "ksyscall.bpf.o",
+                  "ksyscall/kill",
                   verify_test::VerifyIssueKind::VerifierStackInitialization)
-// stack initialization tracking is too coarse for this access path
-TEST_SECTION_FAIL("libbpf-bootstrap", "ksyscall.bpf.o", "ksyscall/tgkill",
+// Known verifier limitation: stack initialization tracking is too coarse for this access path. Diagnostic: 81: Stack content is not numeric ((r3.type == number and r3.value == 0) or valid_access(r3.offset, width=r4) for read)
+TEST_SECTION_FAIL("libbpf-bootstrap",
+                  "ksyscall.bpf.o",
+                  "ksyscall/tgkill",
                   verify_test::VerifyIssueKind::VerifierStackInitialization)

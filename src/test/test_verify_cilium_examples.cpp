@@ -14,20 +14,28 @@ TEST_SECTION("cilium-examples", "tracepoint_in_c_bpf_bpfel.o", "tracepoint/kmem/
 TEST_SECTION("cilium-examples", "xdp_bpf_bpfel.o", "xdp")
 
 // VerifierTypeTracking:
-// register type refinement is too imprecise in this control-flow pattern
-TEST_SECTION_FAIL("cilium-examples", "ringbuffer_bpf_bpfel.o", "kprobe/sys_execve",
+// Known verifier limitation: register type refinement is too imprecise in this control-flow pattern. Diagnostic: 1: Invalid type (r7.type in {ctx, stack, packet, shared})
+TEST_SECTION_FAIL("cilium-examples",
+                  "fentry_bpf_bpfel.o",
+                  "fentry/tcp_connect",
                   verify_test::VerifyIssueKind::VerifierTypeTracking)
-// register type refinement is too imprecise in this control-flow pattern
-TEST_SECTION_FAIL("cilium-examples", "uretprobe_bpf_x86_bpfel.o", "uretprobe/bash_readline",
+// Known verifier limitation: register type refinement is too imprecise in this control-flow pattern. Diagnostic: 9: Invalid type (r0.type in {ctx, stack, packet, shared})
+TEST_SECTION_FAIL("cilium-examples",
+                  "ringbuffer_bpf_bpfel.o",
+                  "kprobe/sys_execve",
                   verify_test::VerifyIssueKind::VerifierTypeTracking)
-
-// VerifierBoundsTracking:
-// interval/bounds refinement loses precision for this memory-access proof
-TEST_SECTION_FAIL("cilium-examples", "fentry_bpf_bpfel.o", "fentry/tcp_connect",
-                  verify_test::VerifyIssueKind::VerifierBoundsTracking)
-// interval/bounds refinement loses precision for this memory-access proof
-TEST_SECTION_FAIL("cilium-examples", "tcprtt_bpf_bpfel.o", "fentry/tcp_close",
-                  verify_test::VerifyIssueKind::VerifierBoundsTracking)
-// interval/bounds refinement loses precision for this memory-access proof
-TEST_SECTION_FAIL("cilium-examples", "tcprtt_sockops_bpf_bpfel.o", "sockops",
-                  verify_test::VerifyIssueKind::VerifierBoundsTracking)
+// Known verifier limitation: register type refinement is too imprecise in this control-flow pattern. Diagnostic: 1: Invalid type (r6.type in {ctx, stack, packet, shared})
+TEST_SECTION_FAIL("cilium-examples",
+                  "tcprtt_bpf_bpfel.o",
+                  "fentry/tcp_close",
+                  verify_test::VerifyIssueKind::VerifierTypeTracking)
+// Known verifier limitation: register type refinement is too imprecise in this control-flow pattern. Diagnostic: 66: Invalid type (r0.type in {ctx, stack, packet, shared})
+TEST_SECTION_FAIL("cilium-examples",
+                  "tcprtt_sockops_bpf_bpfel.o",
+                  "sockops",
+                  verify_test::VerifyIssueKind::VerifierTypeTracking)
+// Known verifier limitation: register type refinement is too imprecise in this control-flow pattern. Diagnostic: 7: Invalid type (r3.type == number)
+TEST_SECTION_FAIL("cilium-examples",
+                  "uretprobe_bpf_x86_bpfel.o",
+                  "uretprobe/bash_readline",
+                  verify_test::VerifyIssueKind::VerifierTypeTracking)

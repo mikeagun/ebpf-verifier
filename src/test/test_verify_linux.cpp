@@ -128,6 +128,8 @@ TEST_SECTION("linux", "xdp_tx_iptunnel_kern.o", "xdp_tx_iptunnel")
 TEST_SECTION("linux", "xdpsock_kern.o", "xdp_sock")
 
 // VerifierTypeTracking:
-// register type refinement is too imprecise in this control-flow pattern
-TEST_SECTION_FAIL("linux", "test_map_in_map_kern.o", "kprobe/sys_connect",
+// Known verifier limitation: register type refinement is too imprecise in this control-flow pattern. Diagnostic: 80: Invalid type (r1.type == map_fd)
+TEST_SECTION_FAIL("linux",
+                  "test_map_in_map_kern.o",
+                  "kprobe/sys_connect",
                   verify_test::VerifyIssueKind::VerifierTypeTracking)

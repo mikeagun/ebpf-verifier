@@ -8,15 +8,12 @@ TEST_SECTION("cilium-ebpf", "btf_map_init-el.elf", "socket/main")
 TEST_SECTION("cilium-ebpf", "btf_map_init-el.elf", "socket/tail")
 TEST_SECTION("cilium-ebpf", "constants-el.elf", "sk_lookup/")
 TEST_PROGRAM("cilium-ebpf", "errors-el.elf", "socket", "poisoned_double", 3)
-TEST_PROGRAM_REJECT("cilium-ebpf", "errors-el.elf", "socket", "poisoned_kfunc", 3)
-TEST_PROGRAM_REJECT("cilium-ebpf", "errors-el.elf", "socket", "poisoned_single", 3)
 TEST_SECTION("cilium-ebpf", "fentry_fexit-el.elf", "fentry/target")
 TEST_SECTION("cilium-ebpf", "fentry_fexit-el.elf", "fexit/target")
 TEST_SECTION("cilium-ebpf", "fentry_fexit-el.elf", "tc")
 TEST_SECTION("cilium-ebpf", "freplace-el.elf", ".text")
 TEST_SECTION("cilium-ebpf", "freplace-el.elf", "freplace/subprog")
 TEST_SECTION("cilium-ebpf", "freplace-el.elf", "raw_tracepoint/sched_process_exec")
-TEST_SECTION_REJECT("cilium-ebpf", "fwd_decl-el.elf", "socket")
 TEST_SECTION_REJECT("cilium-ebpf", "invalid-kfunc-el.elf", "tc")
 TEST_SECTION("cilium-ebpf", "kconfig-el.elf", "socket")
 TEST_SECTION_REJECT("cilium-ebpf", "kfunc-el.elf", "fentry/bpf_fentry_test2")
@@ -42,13 +39,11 @@ TEST_PROGRAM("cilium-ebpf", "linked1-el.elf", ".text", "l1_w", 4)
 TEST_PROGRAM("cilium-ebpf", "linked1-el.elf", ".text", "ww", 4)
 TEST_PROGRAM("cilium-ebpf", "linked1-el.elf", "socket", "entry_l1_s", 4)
 TEST_PROGRAM("cilium-ebpf", "linked1-el.elf", "socket", "entry_l1_w", 4)
-TEST_PROGRAM_REJECT("cilium-ebpf", "linked1-el.elf", "socket", "entry_l2", 4)
 TEST_PROGRAM("cilium-ebpf", "linked1-el.elf", "socket", "entry_ww", 4)
 TEST_PROGRAM("cilium-ebpf", "linked2-el.elf", ".text", "l1_s", 4)
 TEST_PROGRAM("cilium-ebpf", "linked2-el.elf", ".text", "l1_w", 4)
 TEST_PROGRAM("cilium-ebpf", "linked2-el.elf", ".text", "l2", 4)
 TEST_PROGRAM("cilium-ebpf", "linked2-el.elf", ".text", "ww", 4)
-TEST_PROGRAM_REJECT("cilium-ebpf", "linked2-el.elf", "socket", "entry_l1", 4)
 TEST_PROGRAM("cilium-ebpf", "linked2-el.elf", "socket", "entry_l1_s", 4)
 TEST_PROGRAM("cilium-ebpf", "linked2-el.elf", "socket", "entry_l1_w", 4)
 TEST_PROGRAM("cilium-ebpf", "linked2-el.elf", "socket", "entry_ww", 4)
@@ -121,59 +116,131 @@ TEST_PROGRAM("cilium-ebpf", "variables-el.elf", "socket", "get_rodata", 8)
 TEST_PROGRAM("cilium-ebpf", "variables-el.elf", "socket", "set_vars", 8)
 
 // VerifierTypeTracking:
-// register type refinement is too imprecise in this control-flow pattern
+// Known verifier limitation: register type refinement is too imprecise in this control-flow pattern. Diagnostic: 0: Invalid type (r1.type == number)
+TEST_PROGRAM_FAIL("cilium-ebpf",
+                  "errors-el.elf",
+                  "socket",
+                  "poisoned_kfunc",
+                  3,
+                  verify_test::VerifyIssueKind::VerifierTypeTracking)
+// Known verifier limitation: register type refinement is too imprecise in this control-flow pattern. Diagnostic: 0: Invalid type (r1.type == number)
+TEST_SECTION_FAIL("cilium-ebpf", "fwd_decl-el.elf", "socket", verify_test::VerifyIssueKind::VerifierTypeTracking)
+// Known verifier limitation: register type refinement is too imprecise in this control-flow pattern. Diagnostic: 6: Invalid type (r1.type == map_fd)
 TEST_SECTION_FAIL("cilium-ebpf", "invalid_map_static-el.elf", "xdp", verify_test::VerifyIssueKind::VerifierTypeTracking)
-// register type refinement is too imprecise in this control-flow pattern
-TEST_PROGRAM_FAIL("cilium-ebpf", "loader-clang-14-el.elf", ".text", "global_fn2", 2,
+// Known verifier limitation: register type refinement is too imprecise in this control-flow pattern. Diagnostic: 0: Invalid type (r1.type == number)
+TEST_PROGRAM_FAIL("cilium-ebpf",
+                  "linked1-el.elf",
+                  "socket",
+                  "entry_l2",
+                  4,
                   verify_test::VerifyIssueKind::VerifierTypeTracking)
-// register type refinement is too imprecise in this control-flow pattern
+// Known verifier limitation: register type refinement is too imprecise in this control-flow pattern. Diagnostic: 0: Invalid type (r1.type == number)
+TEST_PROGRAM_FAIL("cilium-ebpf",
+                  "linked2-el.elf",
+                  "socket",
+                  "entry_l1",
+                  4,
+                  verify_test::VerifyIssueKind::VerifierTypeTracking)
+// Known verifier limitation: register type refinement is too imprecise in this control-flow pattern. Diagnostic: 2: Invalid type (r0.type == number)
+TEST_PROGRAM_FAIL("cilium-ebpf",
+                  "loader-clang-14-el.elf",
+                  ".text",
+                  "global_fn2",
+                  2,
+                  verify_test::VerifyIssueKind::VerifierTypeTracking)
+// Known verifier limitation: register type refinement is too imprecise in this control-flow pattern. Diagnostic: 2: Invalid type (r0.type == number)
 TEST_SECTION_FAIL("cilium-ebpf", "loader-clang-14-el.elf", "other", verify_test::VerifyIssueKind::VerifierTypeTracking)
-// register type refinement is too imprecise in this control-flow pattern
+// Known verifier limitation: register type refinement is too imprecise in this control-flow pattern. Diagnostic: 2: Invalid type (r0.type == number)
 TEST_SECTION_FAIL("cilium-ebpf", "loader-clang-14-el.elf", "static", verify_test::VerifyIssueKind::VerifierTypeTracking)
-// register type refinement is too imprecise in this control-flow pattern
-TEST_PROGRAM_FAIL("cilium-ebpf", "loader-clang-17-el.elf", ".text", "global_fn2", 2,
+// Known verifier limitation: register type refinement is too imprecise in this control-flow pattern. Diagnostic: 2: Invalid type (r0.type == number)
+TEST_PROGRAM_FAIL("cilium-ebpf",
+                  "loader-clang-17-el.elf",
+                  ".text",
+                  "global_fn2",
+                  2,
                   verify_test::VerifyIssueKind::VerifierTypeTracking)
-// register type refinement is too imprecise in this control-flow pattern
+// Known verifier limitation: register type refinement is too imprecise in this control-flow pattern. Diagnostic: 2: Invalid type (r0.type == number)
 TEST_SECTION_FAIL("cilium-ebpf", "loader-clang-17-el.elf", "other", verify_test::VerifyIssueKind::VerifierTypeTracking)
-// register type refinement is too imprecise in this control-flow pattern
+// Known verifier limitation: register type refinement is too imprecise in this control-flow pattern. Diagnostic: 2: Invalid type (r0.type == number)
 TEST_SECTION_FAIL("cilium-ebpf", "loader-clang-17-el.elf", "static", verify_test::VerifyIssueKind::VerifierTypeTracking)
-// register type refinement is too imprecise in this control-flow pattern
-TEST_PROGRAM_FAIL("cilium-ebpf", "loader-clang-20-el.elf", ".text", "global_fn2", 2,
+// Known verifier limitation: register type refinement is too imprecise in this control-flow pattern. Diagnostic: 2: Invalid type (r0.type == number)
+TEST_PROGRAM_FAIL("cilium-ebpf",
+                  "loader-clang-20-el.elf",
+                  ".text",
+                  "global_fn2",
+                  2,
                   verify_test::VerifyIssueKind::VerifierTypeTracking)
-// register type refinement is too imprecise in this control-flow pattern
+// Known verifier limitation: register type refinement is too imprecise in this control-flow pattern. Diagnostic: 2: Invalid type (r0.type == number)
 TEST_SECTION_FAIL("cilium-ebpf", "loader-clang-20-el.elf", "other", verify_test::VerifyIssueKind::VerifierTypeTracking)
-// register type refinement is too imprecise in this control-flow pattern
+// Known verifier limitation: register type refinement is too imprecise in this control-flow pattern. Diagnostic: 2: Invalid type (r0.type == number)
 TEST_SECTION_FAIL("cilium-ebpf", "loader-clang-20-el.elf", "static", verify_test::VerifyIssueKind::VerifierTypeTracking)
-// register type refinement is too imprecise in this control-flow pattern
-TEST_PROGRAM_FAIL("cilium-ebpf", "loader-el.elf", ".text", "global_fn2", 2,
+// Known verifier limitation: register type refinement is too imprecise in this control-flow pattern. Diagnostic: 2: Invalid type (r0.type == number)
+TEST_PROGRAM_FAIL("cilium-ebpf",
+                  "loader-el.elf",
+                  ".text",
+                  "global_fn2",
+                  2,
                   verify_test::VerifyIssueKind::VerifierTypeTracking)
-// register type refinement is too imprecise in this control-flow pattern
+// Known verifier limitation: register type refinement is too imprecise in this control-flow pattern. Diagnostic: 2: Invalid type (r0.type == number)
 TEST_SECTION_FAIL("cilium-ebpf", "loader-el.elf", "other", verify_test::VerifyIssueKind::VerifierTypeTracking)
-// register type refinement is too imprecise in this control-flow pattern
+// Known verifier limitation: register type refinement is too imprecise in this control-flow pattern. Diagnostic: 2: Invalid type (r0.type == number)
 TEST_SECTION_FAIL("cilium-ebpf", "loader-el.elf", "static", verify_test::VerifyIssueKind::VerifierTypeTracking)
-// register type refinement is too imprecise in this control-flow pattern
-TEST_PROGRAM_FAIL("cilium-ebpf", "loader_nobtf-el.elf", ".text", "global_fn2", 2,
+// Known verifier limitation: register type refinement is too imprecise in this control-flow pattern. Diagnostic: 2: Invalid type (r0.type == number)
+TEST_PROGRAM_FAIL("cilium-ebpf",
+                  "loader_nobtf-el.elf",
+                  ".text",
+                  "global_fn2",
+                  2,
                   verify_test::VerifyIssueKind::VerifierTypeTracking)
-// register type refinement is too imprecise in this control-flow pattern
+// Known verifier limitation: register type refinement is too imprecise in this control-flow pattern. Diagnostic: 2: Invalid type (r0.type == number)
 TEST_SECTION_FAIL("cilium-ebpf", "loader_nobtf-el.elf", "other", verify_test::VerifyIssueKind::VerifierTypeTracking)
-// register type refinement is too imprecise in this control-flow pattern
+// Known verifier limitation: register type refinement is too imprecise in this control-flow pattern. Diagnostic: 2: Invalid type (r0.type == number)
 TEST_SECTION_FAIL("cilium-ebpf", "loader_nobtf-el.elf", "static", verify_test::VerifyIssueKind::VerifierTypeTracking)
-// register type refinement is too imprecise in this control-flow pattern
+// Known verifier limitation: register type refinement is too imprecise in this control-flow pattern. Diagnostic: 19: Invalid type (r2.type == func)
 TEST_SECTION_FAIL("cilium-ebpf", "subprog_reloc-el.elf", "xdp", verify_test::VerifyIssueKind::VerifierTypeTracking)
 
+// VerifierStackInitialization:
+// Known verifier limitation: stack initialization tracking is too coarse for this access path. Diagnostic: 6: Stack content is not numeric (valid_access(r1.offset, width=4) for read)
+TEST_PROGRAM_FAIL("cilium-ebpf",
+                  "errors-el.elf",
+                  "socket",
+                  "poisoned_single",
+                  3,
+                  verify_test::VerifyIssueKind::VerifierStackInitialization)
+
 // VerifierPointerArithmetic:
-// pointer-arithmetic typing is too restrictive in this pattern
-TEST_PROGRAM_FAIL("cilium-ebpf", "loader-clang-14-el.elf", ".text", "global_fn", 2,
+// Known verifier limitation: pointer-arithmetic typing is too restrictive in this pattern. Diagnostic: 6: Only numbers can be added to pointers (r7.type in {ctx, stack, packet, shared} -> r8.type == number)
+TEST_PROGRAM_FAIL("cilium-ebpf",
+                  "loader-clang-14-el.elf",
+                  ".text",
+                  "global_fn",
+                  2,
                   verify_test::VerifyIssueKind::VerifierPointerArithmetic)
-// pointer-arithmetic typing is too restrictive in this pattern
-TEST_PROGRAM_FAIL("cilium-ebpf", "loader-clang-17-el.elf", ".text", "global_fn", 2,
+// Known verifier limitation: pointer-arithmetic typing is too restrictive in this pattern. Diagnostic: 6: Only numbers can be added to pointers (r7.type in {ctx, stack, packet, shared} -> r8.type == number)
+TEST_PROGRAM_FAIL("cilium-ebpf",
+                  "loader-clang-17-el.elf",
+                  ".text",
+                  "global_fn",
+                  2,
                   verify_test::VerifyIssueKind::VerifierPointerArithmetic)
-// pointer-arithmetic typing is too restrictive in this pattern
-TEST_PROGRAM_FAIL("cilium-ebpf", "loader-clang-20-el.elf", ".text", "global_fn", 2,
+// Known verifier limitation: pointer-arithmetic typing is too restrictive in this pattern. Diagnostic: 6: Only numbers can be added to pointers (r7.type in {ctx, stack, packet, shared} -> r8.type == number)
+TEST_PROGRAM_FAIL("cilium-ebpf",
+                  "loader-clang-20-el.elf",
+                  ".text",
+                  "global_fn",
+                  2,
                   verify_test::VerifyIssueKind::VerifierPointerArithmetic)
-// pointer-arithmetic typing is too restrictive in this pattern
-TEST_PROGRAM_FAIL("cilium-ebpf", "loader-el.elf", ".text", "global_fn", 2,
+// Known verifier limitation: pointer-arithmetic typing is too restrictive in this pattern. Diagnostic: 6: Only numbers can be added to pointers (r7.type in {ctx, stack, packet, shared} -> r8.type == number)
+TEST_PROGRAM_FAIL("cilium-ebpf",
+                  "loader-el.elf",
+                  ".text",
+                  "global_fn",
+                  2,
                   verify_test::VerifyIssueKind::VerifierPointerArithmetic)
-// pointer-arithmetic typing is too restrictive in this pattern
-TEST_PROGRAM_FAIL("cilium-ebpf", "loader_nobtf-el.elf", ".text", "global_fn", 2,
+// Known verifier limitation: pointer-arithmetic typing is too restrictive in this pattern. Diagnostic: 6: Only numbers can be added to pointers (r7.type in {ctx, stack, packet, shared} -> r8.type == number)
+TEST_PROGRAM_FAIL("cilium-ebpf",
+                  "loader_nobtf-el.elf",
+                  ".text",
+                  "global_fn",
+                  2,
                   verify_test::VerifyIssueKind::VerifierPointerArithmetic)

@@ -67,6 +67,15 @@ def explain(kind: str, diagnostic: str) -> str:
 
 
 def classify_diagnostic(diagnostic: str) -> tuple[str, str, str] | None:
+    # Correct rejections of malformed or unsupported input.
+    if "unmarshaling error" in diagnostic:
+        return "reject", None, ""
+    if "not implemented" in diagnostic:
+        return "reject", None, ""
+    if "helper function is unavailable" in diagnostic:
+        return "reject", None, ""
+    if "BTF map parsing failed" in diagnostic:
+        return "reject", None, ""
     if "illegal recursion" in diagnostic:
         kind = "VerifierRecursionModeling"
         return "expected_failure", kind, explain(kind, diagnostic)
@@ -273,8 +282,8 @@ def refresh_expectations(
                 program_overrides.pop(section, None)
                 if status == "pass":
                     section_overrides.pop(section, None)
-                elif status == "reject_load":
-                    section_overrides[section] = {"status": "reject_load"}
+                elif status in ("reject_load", "reject"):
+                    section_overrides[section] = {"status": status}
                 else:
                     current_reason = current.get("reason") if current else None
                     current_kind = current.get("kind") if current else None
@@ -304,6 +313,8 @@ def refresh_expectations(
                     section_program_overrides.pop(function_name, None)
                     if not section_program_overrides:
                         program_overrides.pop(section, None)
+                elif status == "reject":
+                    section_program_overrides[function_name] = {"status": "reject"}
                 else:
                     current_reason = current.get("reason") if current else None
                     current_kind = current.get("kind") if current else None

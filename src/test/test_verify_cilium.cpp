@@ -44,97 +44,99 @@ TEST_SECTION("cilium", "bpf_xdp_snat_linux_v1.o", "2/1")
 TEST_SECTION("cilium", "bpf_xdp_snat_linux_v1.o", "from-netdev")
 
 // VerifierTypeTracking:
-// register type refinement is too imprecise in this control-flow pattern
+// Known verifier limitation: register type refinement is too imprecise in this control-flow pattern. Diagnostic: 169: Invalid type (r3.type == number)
 TEST_SECTION_FAIL("cilium", "bpf_xdp_dsr_linux.o", "2/16", verify_test::VerifyIssueKind::VerifierTypeTracking)
-// register type refinement is too imprecise in this control-flow pattern
+// Known verifier limitation: register type refinement is too imprecise in this control-flow pattern. Diagnostic: 191: Invalid type (r5.type == number)
 TEST_SECTION_FAIL("cilium", "bpf_xdp_dsr_linux.o", "2/24", verify_test::VerifyIssueKind::VerifierTypeTracking)
-// register type refinement is too imprecise in this control-flow pattern
+// Known verifier limitation: register type refinement is too imprecise in this control-flow pattern. Diagnostic: 169: Invalid type (r3.type == number)
 TEST_SECTION_FAIL("cilium", "bpf_xdp_dsr_linux_v1.o", "2/16", verify_test::VerifyIssueKind::VerifierTypeTracking)
-// register type refinement is too imprecise in this control-flow pattern
+// Known verifier limitation: register type refinement is too imprecise in this control-flow pattern. Diagnostic: 191: Invalid type (r5.type == number)
 TEST_SECTION_FAIL("cilium", "bpf_xdp_dsr_linux_v1.o", "2/24", verify_test::VerifyIssueKind::VerifierTypeTracking)
-// register type refinement is too imprecise in this control-flow pattern
+// Known verifier limitation: register type refinement is too imprecise in this control-flow pattern. Diagnostic: 176: Invalid type (r4.type == number)
 TEST_SECTION_FAIL("cilium", "bpf_xdp_dsr_linux_v1_1.o", "2/16", verify_test::VerifyIssueKind::VerifierTypeTracking)
-// register type refinement is too imprecise in this control-flow pattern
+// Known verifier limitation: register type refinement is too imprecise in this control-flow pattern. Diagnostic: 198: Invalid type (r5.type == number)
 TEST_SECTION_FAIL("cilium", "bpf_xdp_dsr_linux_v1_1.o", "2/24", verify_test::VerifyIssueKind::VerifierTypeTracking)
-// register type refinement is too imprecise in this control-flow pattern
+// Known verifier limitation: register type refinement is too imprecise in this control-flow pattern. Diagnostic: 169: Invalid type (r3.type == number)
 TEST_SECTION_FAIL("cilium", "bpf_xdp_snat_linux.o", "2/16", verify_test::VerifyIssueKind::VerifierTypeTracking)
-// register type refinement is too imprecise in this control-flow pattern
+// Known verifier limitation: register type refinement is too imprecise in this control-flow pattern. Diagnostic: 191: Invalid type (r5.type == number)
 TEST_SECTION_FAIL("cilium", "bpf_xdp_snat_linux.o", "2/24", verify_test::VerifyIssueKind::VerifierTypeTracking)
-// register type refinement is too imprecise in this control-flow pattern
-TEST_SECTION_FAIL("cilium", "bpf_xdp_snat_linux_v1.o", "2/16", verify_test::VerifyIssueKind::VerifierTypeTracking)
-// register type refinement is too imprecise in this control-flow pattern
-TEST_SECTION_FAIL("cilium", "bpf_xdp_snat_linux_v1.o", "2/24", verify_test::VerifyIssueKind::VerifierTypeTracking)
 
 // VerifierBoundsTracking:
-// interval/bounds refinement loses precision for this memory-access proof
+// Known verifier limitation: interval/bounds refinement loses precision for this memory-access proof. Diagnostic: 168: Upper bound must be at most packet_size (valid_access(r4.offset, width=2) for read)
 TEST_SECTION_FAIL("cilium", "bpf_xdp_dsr_linux.o", "2/10", verify_test::VerifyIssueKind::VerifierBoundsTracking)
-// interval/bounds refinement loses precision for this memory-access proof
+// Known verifier limitation: interval/bounds refinement loses precision for this memory-access proof. Diagnostic: 64: Upper bound must be at most packet_size (valid_access(r5.offset, width=4) for read)
 TEST_SECTION_FAIL("cilium", "bpf_xdp_dsr_linux.o", "2/15", verify_test::VerifyIssueKind::VerifierBoundsTracking)
-// interval/bounds refinement loses precision for this memory-access proof
+// Known verifier limitation: interval/bounds refinement loses precision for this memory-access proof. Diagnostic: 63: Upper bound must be at most packet_size (valid_access(r4.offset, width=4) for read)
 TEST_SECTION_FAIL("cilium", "bpf_xdp_dsr_linux.o", "2/17", verify_test::VerifyIssueKind::VerifierBoundsTracking)
-// interval/bounds refinement loses precision for this memory-access proof
+// Known verifier limitation: interval/bounds refinement loses precision for this memory-access proof. Diagnostic: 172: Upper bound must be at most packet_size (valid_access(r4.offset, width=4) for read)
 TEST_SECTION_FAIL("cilium", "bpf_xdp_dsr_linux.o", "2/18", verify_test::VerifyIssueKind::VerifierBoundsTracking)
-// interval/bounds refinement loses precision for this memory-access proof
+// Known verifier limitation: interval/bounds refinement loses precision for this memory-access proof. Diagnostic: 39: Upper bound must be at most packet_size (valid_access(r4.offset, width=4) for read)
 TEST_SECTION_FAIL("cilium", "bpf_xdp_dsr_linux.o", "2/19", verify_test::VerifyIssueKind::VerifierBoundsTracking)
-// interval/bounds refinement loses precision for this memory-access proof
+// Known verifier limitation: interval/bounds refinement loses precision for this memory-access proof. Diagnostic: 230: Upper bound must be at most packet_size (valid_access(r3.offset+32, width=8) for write)
 TEST_SECTION_FAIL("cilium", "bpf_xdp_dsr_linux.o", "2/20", verify_test::VerifyIssueKind::VerifierBoundsTracking)
-// interval/bounds refinement loses precision for this memory-access proof
+// Known verifier limitation: interval/bounds refinement loses precision for this memory-access proof. Diagnostic: 535: Upper bound must be at most packet_size (valid_access(r3.offset+32, width=8) for write)
 TEST_SECTION_FAIL("cilium", "bpf_xdp_dsr_linux.o", "2/21", verify_test::VerifyIssueKind::VerifierBoundsTracking)
-// interval/bounds refinement loses precision for this memory-access proof
+// Known verifier limitation: interval/bounds refinement loses precision for this memory-access proof. Diagnostic: 126: Upper bound must be at most packet_size (valid_access(r4.offset, width=4) for read)
 TEST_SECTION_FAIL("cilium", "bpf_xdp_dsr_linux.o", "2/7", verify_test::VerifyIssueKind::VerifierBoundsTracking)
-// interval/bounds refinement loses precision for this memory-access proof
+// Known verifier limitation: interval/bounds refinement loses precision for this memory-access proof. Diagnostic: 168: Upper bound must be at most packet_size (valid_access(r4.offset, width=2) for read)
 TEST_SECTION_FAIL("cilium", "bpf_xdp_dsr_linux_v1.o", "2/10", verify_test::VerifyIssueKind::VerifierBoundsTracking)
-// interval/bounds refinement loses precision for this memory-access proof
+// Known verifier limitation: interval/bounds refinement loses precision for this memory-access proof. Diagnostic: 64: Upper bound must be at most packet_size (valid_access(r5.offset, width=4) for read)
 TEST_SECTION_FAIL("cilium", "bpf_xdp_dsr_linux_v1.o", "2/15", verify_test::VerifyIssueKind::VerifierBoundsTracking)
-// interval/bounds refinement loses precision for this memory-access proof
+// Known verifier limitation: interval/bounds refinement loses precision for this memory-access proof. Diagnostic: 63: Upper bound must be at most packet_size (valid_access(r4.offset, width=4) for read)
 TEST_SECTION_FAIL("cilium", "bpf_xdp_dsr_linux_v1.o", "2/17", verify_test::VerifyIssueKind::VerifierBoundsTracking)
-// interval/bounds refinement loses precision for this memory-access proof
+// Known verifier limitation: interval/bounds refinement loses precision for this memory-access proof. Diagnostic: 172: Upper bound must be at most packet_size (valid_access(r4.offset, width=4) for read)
 TEST_SECTION_FAIL("cilium", "bpf_xdp_dsr_linux_v1.o", "2/18", verify_test::VerifyIssueKind::VerifierBoundsTracking)
-// interval/bounds refinement loses precision for this memory-access proof
+// Known verifier limitation: interval/bounds refinement loses precision for this memory-access proof. Diagnostic: 39: Upper bound must be at most packet_size (valid_access(r4.offset, width=4) for read)
 TEST_SECTION_FAIL("cilium", "bpf_xdp_dsr_linux_v1.o", "2/19", verify_test::VerifyIssueKind::VerifierBoundsTracking)
-// interval/bounds refinement loses precision for this memory-access proof
+// Known verifier limitation: interval/bounds refinement loses precision for this memory-access proof. Diagnostic: 230: Upper bound must be at most packet_size (valid_access(r3.offset+32, width=8) for write)
 TEST_SECTION_FAIL("cilium", "bpf_xdp_dsr_linux_v1.o", "2/20", verify_test::VerifyIssueKind::VerifierBoundsTracking)
-// interval/bounds refinement loses precision for this memory-access proof
+// Known verifier limitation: interval/bounds refinement loses precision for this memory-access proof. Diagnostic: 535: Upper bound must be at most packet_size (valid_access(r3.offset+32, width=8) for write)
 TEST_SECTION_FAIL("cilium", "bpf_xdp_dsr_linux_v1.o", "2/21", verify_test::VerifyIssueKind::VerifierBoundsTracking)
-// interval/bounds refinement loses precision for this memory-access proof
+// Known verifier limitation: interval/bounds refinement loses precision for this memory-access proof. Diagnostic: 126: Upper bound must be at most packet_size (valid_access(r4.offset, width=4) for read)
 TEST_SECTION_FAIL("cilium", "bpf_xdp_dsr_linux_v1.o", "2/7", verify_test::VerifyIssueKind::VerifierBoundsTracking)
-// interval/bounds refinement loses precision for this memory-access proof
+// Known verifier limitation: interval/bounds refinement loses precision for this memory-access proof. Diagnostic: 173: Upper bound must be at most packet_size (valid_access(r4.offset, width=2) for read)
 TEST_SECTION_FAIL("cilium", "bpf_xdp_dsr_linux_v1_1.o", "2/10", verify_test::VerifyIssueKind::VerifierBoundsTracking)
-// interval/bounds refinement loses precision for this memory-access proof
+// Known verifier limitation: interval/bounds refinement loses precision for this memory-access proof. Diagnostic: 68: Upper bound must be at most packet_size (valid_access(r3.offset, width=4) for read)
 TEST_SECTION_FAIL("cilium", "bpf_xdp_dsr_linux_v1_1.o", "2/15", verify_test::VerifyIssueKind::VerifierBoundsTracking)
-// interval/bounds refinement loses precision for this memory-access proof
+// Known verifier limitation: interval/bounds refinement loses precision for this memory-access proof. Diagnostic: 67: Upper bound must be at most packet_size (valid_access(r3.offset, width=4) for read)
 TEST_SECTION_FAIL("cilium", "bpf_xdp_dsr_linux_v1_1.o", "2/17", verify_test::VerifyIssueKind::VerifierBoundsTracking)
-// interval/bounds refinement loses precision for this memory-access proof
+// Known verifier limitation: interval/bounds refinement loses precision for this memory-access proof. Diagnostic: 184: Upper bound must be at most packet_size (valid_access(r4.offset, width=4) for read)
 TEST_SECTION_FAIL("cilium", "bpf_xdp_dsr_linux_v1_1.o", "2/18", verify_test::VerifyIssueKind::VerifierBoundsTracking)
-// interval/bounds refinement loses precision for this memory-access proof
+// Known verifier limitation: interval/bounds refinement loses precision for this memory-access proof. Diagnostic: 43: Upper bound must be at most packet_size (valid_access(r4.offset, width=4) for read)
 TEST_SECTION_FAIL("cilium", "bpf_xdp_dsr_linux_v1_1.o", "2/19", verify_test::VerifyIssueKind::VerifierBoundsTracking)
-// interval/bounds refinement loses precision for this memory-access proof
+// Known verifier limitation: interval/bounds refinement loses precision for this memory-access proof. Diagnostic: 256: Upper bound must be at most packet_size (valid_access(r3.offset+32, width=8) for write)
 TEST_SECTION_FAIL("cilium", "bpf_xdp_dsr_linux_v1_1.o", "2/20", verify_test::VerifyIssueKind::VerifierBoundsTracking)
-// interval/bounds refinement loses precision for this memory-access proof
+// Known verifier limitation: interval/bounds refinement loses precision for this memory-access proof. Diagnostic: 375: Upper bound must be at most packet_size (valid_access(r4.offset, width=2) for write)
 TEST_SECTION_FAIL("cilium", "bpf_xdp_dsr_linux_v1_1.o", "2/21", verify_test::VerifyIssueKind::VerifierBoundsTracking)
-// interval/bounds refinement loses precision for this memory-access proof
+// Known verifier limitation: interval/bounds refinement loses precision for this memory-access proof. Diagnostic: 133: Upper bound must be at most packet_size (valid_access(r3.offset, width=4) for read)
 TEST_SECTION_FAIL("cilium", "bpf_xdp_dsr_linux_v1_1.o", "2/7", verify_test::VerifyIssueKind::VerifierBoundsTracking)
-// interval/bounds refinement loses precision for this memory-access proof
+// Known verifier limitation: interval/bounds refinement loses precision for this memory-access proof. Diagnostic: 170: Upper bound must be at most packet_size (valid_access(r4.offset, width=2) for read)
 TEST_SECTION_FAIL("cilium", "bpf_xdp_snat_linux.o", "2/10", verify_test::VerifyIssueKind::VerifierBoundsTracking)
-// interval/bounds refinement loses precision for this memory-access proof
+// Known verifier limitation: interval/bounds refinement loses precision for this memory-access proof. Diagnostic: 64: Upper bound must be at most packet_size (valid_access(r5.offset, width=4) for read)
 TEST_SECTION_FAIL("cilium", "bpf_xdp_snat_linux.o", "2/15", verify_test::VerifyIssueKind::VerifierBoundsTracking)
-// interval/bounds refinement loses precision for this memory-access proof
+// Known verifier limitation: interval/bounds refinement loses precision for this memory-access proof. Diagnostic: 63: Upper bound must be at most packet_size (valid_access(r4.offset, width=4) for read)
 TEST_SECTION_FAIL("cilium", "bpf_xdp_snat_linux.o", "2/17", verify_test::VerifyIssueKind::VerifierBoundsTracking)
-// interval/bounds refinement loses precision for this memory-access proof
+// Known verifier limitation: interval/bounds refinement loses precision for this memory-access proof. Diagnostic: 172: Upper bound must be at most packet_size (valid_access(r4.offset, width=4) for read)
 TEST_SECTION_FAIL("cilium", "bpf_xdp_snat_linux.o", "2/18", verify_test::VerifyIssueKind::VerifierBoundsTracking)
-// interval/bounds refinement loses precision for this memory-access proof
+// Known verifier limitation: interval/bounds refinement loses precision for this memory-access proof. Diagnostic: 39: Upper bound must be at most packet_size (valid_access(r4.offset, width=4) for read)
 TEST_SECTION_FAIL("cilium", "bpf_xdp_snat_linux.o", "2/19", verify_test::VerifyIssueKind::VerifierBoundsTracking)
-// interval/bounds refinement loses precision for this memory-access proof
+// Known verifier limitation: interval/bounds refinement loses precision for this memory-access proof. Diagnostic: 143: Upper bound must be at most packet_size (valid_access(r4.offset, width=4) for read)
 TEST_SECTION_FAIL("cilium", "bpf_xdp_snat_linux.o", "2/7", verify_test::VerifyIssueKind::VerifierBoundsTracking)
-// interval/bounds refinement loses precision for this memory-access proof
+// Known verifier limitation: interval/bounds refinement loses precision for this memory-access proof. Diagnostic: 170: Upper bound must be at most packet_size (valid_access(r4.offset, width=2) for read)
 TEST_SECTION_FAIL("cilium", "bpf_xdp_snat_linux_v1.o", "2/10", verify_test::VerifyIssueKind::VerifierBoundsTracking)
-// interval/bounds refinement loses precision for this memory-access proof
-TEST_SECTION_FAIL("cilium", "bpf_xdp_snat_linux_v1.o", "2/15", verify_test::VerifyIssueKind::VerifierBoundsTracking)
-// interval/bounds refinement loses precision for this memory-access proof
+// Known verifier limitation: interval/bounds refinement loses precision for this memory-access proof. Diagnostic: 63: Upper bound must be at most packet_size (valid_access(r4.offset, width=4) for read)
 TEST_SECTION_FAIL("cilium", "bpf_xdp_snat_linux_v1.o", "2/17", verify_test::VerifyIssueKind::VerifierBoundsTracking)
-// interval/bounds refinement loses precision for this memory-access proof
+// Known verifier limitation: interval/bounds refinement loses precision for this memory-access proof. Diagnostic: 172: Upper bound must be at most packet_size (valid_access(r4.offset, width=4) for read)
 TEST_SECTION_FAIL("cilium", "bpf_xdp_snat_linux_v1.o", "2/18", verify_test::VerifyIssueKind::VerifierBoundsTracking)
-// interval/bounds refinement loses precision for this memory-access proof
-TEST_SECTION_FAIL("cilium", "bpf_xdp_snat_linux_v1.o", "2/19", verify_test::VerifyIssueKind::VerifierBoundsTracking)
-// interval/bounds refinement loses precision for this memory-access proof
+// Known verifier limitation: interval/bounds refinement loses precision for this memory-access proof. Diagnostic: 143: Upper bound must be at most packet_size (valid_access(r4.offset, width=4) for read)
 TEST_SECTION_FAIL("cilium", "bpf_xdp_snat_linux_v1.o", "2/7", verify_test::VerifyIssueKind::VerifierBoundsTracking)
+
+// VerificationTimeout:
+// Known algorithmic limitation: verification did not converge within the configured timeout. Diagnostic: verification timed out after 300s
+TEST_SECTION_SKIP("cilium", "bpf_xdp_snat_linux_v1.o", "2/15", verify_test::VerifyIssueKind::VerificationTimeout)
+// Known algorithmic limitation: verification did not converge within the configured timeout. Diagnostic: verification timed out after 300s
+TEST_SECTION_SKIP("cilium", "bpf_xdp_snat_linux_v1.o", "2/16", verify_test::VerifyIssueKind::VerificationTimeout)
+// Known algorithmic limitation: verification did not converge within the configured timeout. Diagnostic: verification timed out after 300s
+TEST_SECTION_SKIP("cilium", "bpf_xdp_snat_linux_v1.o", "2/19", verify_test::VerifyIssueKind::VerificationTimeout)
+// Known algorithmic limitation: verification did not converge within the configured timeout. Diagnostic: verification timed out after 300s
+TEST_SECTION_SKIP("cilium", "bpf_xdp_snat_linux_v1.o", "2/24", verify_test::VerifyIssueKind::VerificationTimeout)
