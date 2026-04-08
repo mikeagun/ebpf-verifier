@@ -15,7 +15,9 @@ TEST_SECTION("bcc", "tcpconnect.bpf.o", "kprobe/tcp_v6_connect")
 // register type refinement is too imprecise in this control-flow pattern
 TEST_SECTION_FAIL("bcc", "bashreadline.bpf.o", "uretprobe/readline", verify_test::VerifyIssueKind::VerifierTypeTracking)
 // register type refinement is too imprecise in this control-flow pattern
-TEST_SECTION_FAIL("bcc", "filelife.bpf.o", "kprobe/security_inode_create",
+TEST_SECTION_FAIL("bcc",
+                  "filelife.bpf.o",
+                  "kprobe/security_inode_create",
                   verify_test::VerifyIssueKind::VerifierTypeTracking)
 // register type refinement is too imprecise in this control-flow pattern
 TEST_SECTION_FAIL("bcc", "filelife.bpf.o", "kprobe/vfs_create", verify_test::VerifyIssueKind::VerifierTypeTracking)
@@ -28,8 +30,12 @@ TEST_SECTION_FAIL("bcc", "oomkill.bpf.o", "kprobe/oom_kill_process", verify_test
 
 // VerifierBoundsTracking:
 // interval/bounds refinement loses precision for this memory-access proof
-TEST_SECTION_FAIL("bcc", "tcpconnect.bpf.o", "kretprobe/tcp_v4_connect",
+TEST_SECTION_FAIL("bcc",
+                  "tcpconnect.bpf.o",
+                  "kretprobe/tcp_v4_connect",
                   verify_test::VerifyIssueKind::VerifierBoundsTracking)
 // interval/bounds refinement loses precision for this memory-access proof
-TEST_SECTION_FAIL("bcc", "tcpconnect.bpf.o", "kretprobe/tcp_v6_connect",
+TEST_SECTION_FAIL("bcc",
+                  "tcpconnect.bpf.o",
+                  "kretprobe/tcp_v6_connect",
                   verify_test::VerifyIssueKind::VerifierBoundsTracking)

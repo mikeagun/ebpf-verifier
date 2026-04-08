@@ -55,7 +55,11 @@ TEST_SECTION_FAIL("build", "bpf_loop_helper.o", "xdp", verify_test::VerifyIssueK
 // register type refinement is too imprecise in this control-flow pattern
 TEST_SECTION_FAIL("build", "correlated_branch.o", "xdp", verify_test::VerifyIssueKind::VerifierTypeTracking)
 // register type refinement is too imprecise in this control-flow pattern
-TEST_PROGRAM_FAIL("build", "global_func.o", ".text", "add_and_store", 2,
+TEST_PROGRAM_FAIL("build",
+                  "global_func.o",
+                  ".text",
+                  "add_and_store",
+                  2,
                   verify_test::VerifyIssueKind::VerifierTypeTracking)
 // register type refinement is too imprecise in this control-flow pattern
 TEST_SECTION_FAIL("build", "packet_reallocate.o", "socket_filter", verify_test::VerifyIssueKind::VerifierTypeTracking)
@@ -82,7 +86,9 @@ TEST_SECTION_FAIL("build", "packet_overflow.o", "xdp", verify_test::VerifyIssueK
 
 // VerifierStackInitialization:
 // stack initialization tracking is too coarse for this access path
-TEST_SECTION_FAIL("build", "correlated_branch2.o", "socket_filter",
+TEST_SECTION_FAIL("build",
+                  "correlated_branch2.o",
+                  "socket_filter",
                   verify_test::VerifyIssueKind::VerifierStackInitialization)
 // stack initialization tracking is too coarse for this access path
 TEST_SECTION_FAIL("build", "perf_event_array.o", "xdp", verify_test::VerifyIssueKind::VerifierStackInitialization)
@@ -101,7 +107,11 @@ TEST_SECTION_FAIL("build", "exposeptr.o", ".text", verify_test::VerifyIssueKind:
 // map value/key typing and scalarization are too conservative here
 TEST_SECTION_FAIL("build", "exposeptr2.o", ".text", verify_test::VerifyIssueKind::VerifierMapTyping)
 // map value/key typing and scalarization are too conservative here
-TEST_PROGRAM_FAIL("build", "global_func.o", ".text", "process_entry", 2,
+TEST_PROGRAM_FAIL("build",
+                  "global_func.o",
+                  ".text",
+                  "process_entry",
+                  2,
                   verify_test::VerifyIssueKind::VerifierMapTyping)
 
 // VerifierNullability:

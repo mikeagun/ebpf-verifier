@@ -82,62 +82,102 @@ TEST_SECTION("falco", "probe.o", "raw_tracepoint/sys_exit")
 
 // VerifierBoundsTracking:
 // interval/bounds refinement loses precision for this memory-access proof
-TEST_SECTION_FAIL("falco", "probe.o", "raw_tracepoint/filler/sys_accept_x",
+TEST_SECTION_FAIL("falco",
+                  "probe.o",
+                  "raw_tracepoint/filler/sys_accept_x",
                   verify_test::VerifyIssueKind::VerifierBoundsTracking)
 // interval/bounds refinement loses precision for this memory-access proof
-TEST_SECTION_FAIL("falco", "probe.o", "raw_tracepoint/filler/sys_connect_x",
+TEST_SECTION_FAIL("falco",
+                  "probe.o",
+                  "raw_tracepoint/filler/sys_connect_x",
                   verify_test::VerifyIssueKind::VerifierBoundsTracking)
 // interval/bounds refinement loses precision for this memory-access proof
-TEST_SECTION_FAIL("falco", "probe.o", "raw_tracepoint/filler/sys_getsockopt_x",
+TEST_SECTION_FAIL("falco",
+                  "probe.o",
+                  "raw_tracepoint/filler/sys_getsockopt_x",
                   verify_test::VerifyIssueKind::VerifierBoundsTracking)
 // interval/bounds refinement loses precision for this memory-access proof
-TEST_SECTION_FAIL("falco", "probe.o", "raw_tracepoint/filler/sys_nanosleep_e",
+TEST_SECTION_FAIL("falco",
+                  "probe.o",
+                  "raw_tracepoint/filler/sys_nanosleep_e",
                   verify_test::VerifyIssueKind::VerifierBoundsTracking)
 // interval/bounds refinement loses precision for this memory-access proof
-TEST_SECTION_FAIL("falco", "probe.o", "raw_tracepoint/filler/sys_poll_e",
+TEST_SECTION_FAIL("falco",
+                  "probe.o",
+                  "raw_tracepoint/filler/sys_poll_e",
                   verify_test::VerifyIssueKind::VerifierBoundsTracking)
 // interval/bounds refinement loses precision for this memory-access proof
-TEST_SECTION_FAIL("falco", "probe.o", "raw_tracepoint/filler/sys_poll_x",
+TEST_SECTION_FAIL("falco",
+                  "probe.o",
+                  "raw_tracepoint/filler/sys_poll_x",
                   verify_test::VerifyIssueKind::VerifierBoundsTracking)
 // interval/bounds refinement loses precision for this memory-access proof
-TEST_SECTION_FAIL("falco", "probe.o", "raw_tracepoint/filler/sys_ppoll_e",
+TEST_SECTION_FAIL("falco",
+                  "probe.o",
+                  "raw_tracepoint/filler/sys_ppoll_e",
                   verify_test::VerifyIssueKind::VerifierBoundsTracking)
 // interval/bounds refinement loses precision for this memory-access proof
-TEST_SECTION_FAIL("falco", "probe.o", "raw_tracepoint/filler/sys_read_x",
+TEST_SECTION_FAIL("falco",
+                  "probe.o",
+                  "raw_tracepoint/filler/sys_read_x",
                   verify_test::VerifyIssueKind::VerifierBoundsTracking)
 // interval/bounds refinement loses precision for this memory-access proof
-TEST_SECTION_FAIL("falco", "probe.o", "raw_tracepoint/filler/sys_readv_preadv_x",
+TEST_SECTION_FAIL("falco",
+                  "probe.o",
+                  "raw_tracepoint/filler/sys_readv_preadv_x",
                   verify_test::VerifyIssueKind::VerifierBoundsTracking)
 // interval/bounds refinement loses precision for this memory-access proof
-TEST_SECTION_FAIL("falco", "probe.o", "raw_tracepoint/filler/sys_recv_x",
+TEST_SECTION_FAIL("falco",
+                  "probe.o",
+                  "raw_tracepoint/filler/sys_recv_x",
                   verify_test::VerifyIssueKind::VerifierBoundsTracking)
 // interval/bounds refinement loses precision for this memory-access proof
-TEST_SECTION_FAIL("falco", "probe.o", "raw_tracepoint/filler/sys_recvfrom_x",
+TEST_SECTION_FAIL("falco",
+                  "probe.o",
+                  "raw_tracepoint/filler/sys_recvfrom_x",
                   verify_test::VerifyIssueKind::VerifierBoundsTracking)
 // interval/bounds refinement loses precision for this memory-access proof
-TEST_SECTION_FAIL("falco", "probe.o", "raw_tracepoint/filler/sys_recvmsg_x",
+TEST_SECTION_FAIL("falco",
+                  "probe.o",
+                  "raw_tracepoint/filler/sys_recvmsg_x",
                   verify_test::VerifyIssueKind::VerifierBoundsTracking)
 // interval/bounds refinement loses precision for this memory-access proof
-TEST_SECTION_FAIL("falco", "probe.o", "raw_tracepoint/filler/sys_recvmsg_x_2",
+TEST_SECTION_FAIL("falco",
+                  "probe.o",
+                  "raw_tracepoint/filler/sys_recvmsg_x_2",
                   verify_test::VerifyIssueKind::VerifierBoundsTracking)
 // interval/bounds refinement loses precision for this memory-access proof
-TEST_SECTION_FAIL("falco", "probe.o", "raw_tracepoint/filler/sys_send_x",
+TEST_SECTION_FAIL("falco",
+                  "probe.o",
+                  "raw_tracepoint/filler/sys_send_x",
                   verify_test::VerifyIssueKind::VerifierBoundsTracking)
 // interval/bounds refinement loses precision for this memory-access proof
-TEST_SECTION_FAIL("falco", "probe.o", "raw_tracepoint/filler/sys_sendmsg_e",
+TEST_SECTION_FAIL("falco",
+                  "probe.o",
+                  "raw_tracepoint/filler/sys_sendmsg_e",
                   verify_test::VerifyIssueKind::VerifierBoundsTracking)
 // interval/bounds refinement loses precision for this memory-access proof
-TEST_SECTION_FAIL("falco", "probe.o", "raw_tracepoint/filler/sys_sendmsg_x",
+TEST_SECTION_FAIL("falco",
+                  "probe.o",
+                  "raw_tracepoint/filler/sys_sendmsg_x",
                   verify_test::VerifyIssueKind::VerifierBoundsTracking)
 // interval/bounds refinement loses precision for this memory-access proof
-TEST_SECTION_FAIL("falco", "probe.o", "raw_tracepoint/filler/sys_sendto_e",
+TEST_SECTION_FAIL("falco",
+                  "probe.o",
+                  "raw_tracepoint/filler/sys_sendto_e",
                   verify_test::VerifyIssueKind::VerifierBoundsTracking)
 // interval/bounds refinement loses precision for this memory-access proof
-TEST_SECTION_FAIL("falco", "probe.o", "raw_tracepoint/filler/sys_socket_bind_x",
+TEST_SECTION_FAIL("falco",
+                  "probe.o",
+                  "raw_tracepoint/filler/sys_socket_bind_x",
                   verify_test::VerifyIssueKind::VerifierBoundsTracking)
 // interval/bounds refinement loses precision for this memory-access proof
-TEST_SECTION_FAIL("falco", "probe.o", "raw_tracepoint/filler/sys_write_x",
+TEST_SECTION_FAIL("falco",
+                  "probe.o",
+                  "raw_tracepoint/filler/sys_write_x",
                   verify_test::VerifyIssueKind::VerifierBoundsTracking)
 // interval/bounds refinement loses precision for this memory-access proof
-TEST_SECTION_FAIL("falco", "probe.o", "raw_tracepoint/filler/sys_writev_pwritev_x",
+TEST_SECTION_FAIL("falco",
+                  "probe.o",
+                  "raw_tracepoint/filler/sys_writev_pwritev_x",
                   verify_test::VerifyIssueKind::VerifierBoundsTracking)

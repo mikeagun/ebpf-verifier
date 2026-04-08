@@ -56,5 +56,7 @@ TEST_SECTION_REJECT("invalid", "timeout-29db93548c671165313b314d4f83a3eefa24df37
 
 // VerifierMapTyping:
 // Map-in-map lookup chains not supported
-TEST_SECTION_FAIL("invalid", "af99e766f6ba44fd7f2135c3e325c817224b99a3", "xdp_prog",
+TEST_SECTION_FAIL("invalid",
+                  "af99e766f6ba44fd7f2135c3e325c817224b99a3",
+                  "xdp_prog",
                   verify_test::VerifyIssueKind::VerifierMapTyping)

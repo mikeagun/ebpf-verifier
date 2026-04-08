@@ -15,19 +15,29 @@ TEST_SECTION("cilium-examples", "xdp_bpf_bpfel.o", "xdp")
 
 // VerifierTypeTracking:
 // register type refinement is too imprecise in this control-flow pattern
-TEST_SECTION_FAIL("cilium-examples", "ringbuffer_bpf_bpfel.o", "kprobe/sys_execve",
+TEST_SECTION_FAIL("cilium-examples",
+                  "ringbuffer_bpf_bpfel.o",
+                  "kprobe/sys_execve",
                   verify_test::VerifyIssueKind::VerifierTypeTracking)
 // register type refinement is too imprecise in this control-flow pattern
-TEST_SECTION_FAIL("cilium-examples", "uretprobe_bpf_x86_bpfel.o", "uretprobe/bash_readline",
+TEST_SECTION_FAIL("cilium-examples",
+                  "uretprobe_bpf_x86_bpfel.o",
+                  "uretprobe/bash_readline",
                   verify_test::VerifyIssueKind::VerifierTypeTracking)
 
 // VerifierBoundsTracking:
 // interval/bounds refinement loses precision for this memory-access proof
-TEST_SECTION_FAIL("cilium-examples", "fentry_bpf_bpfel.o", "fentry/tcp_connect",
+TEST_SECTION_FAIL("cilium-examples",
+                  "fentry_bpf_bpfel.o",
+                  "fentry/tcp_connect",
                   verify_test::VerifyIssueKind::VerifierBoundsTracking)
 // interval/bounds refinement loses precision for this memory-access proof
-TEST_SECTION_FAIL("cilium-examples", "tcprtt_bpf_bpfel.o", "fentry/tcp_close",
+TEST_SECTION_FAIL("cilium-examples",
+                  "tcprtt_bpf_bpfel.o",
+                  "fentry/tcp_close",
                   verify_test::VerifyIssueKind::VerifierBoundsTracking)
 // interval/bounds refinement loses precision for this memory-access proof
-TEST_SECTION_FAIL("cilium-examples", "tcprtt_sockops_bpf_bpfel.o", "sockops",
+TEST_SECTION_FAIL("cilium-examples",
+                  "tcprtt_sockops_bpf_bpfel.o",
+                  "sockops",
                   verify_test::VerifyIssueKind::VerifierBoundsTracking)

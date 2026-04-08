@@ -129,5 +129,7 @@ TEST_SECTION("linux", "xdpsock_kern.o", "xdp_sock")
 
 // VerifierTypeTracking:
 // register type refinement is too imprecise in this control-flow pattern
-TEST_SECTION_FAIL("linux", "test_map_in_map_kern.o", "kprobe/sys_connect",
+TEST_SECTION_FAIL("linux",
+                  "test_map_in_map_kern.o",
+                  "kprobe/sys_connect",
                   verify_test::VerifyIssueKind::VerifierTypeTracking)

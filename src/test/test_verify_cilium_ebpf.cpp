@@ -124,35 +124,55 @@ TEST_PROGRAM("cilium-ebpf", "variables-el.elf", "socket", "set_vars", 8)
 // register type refinement is too imprecise in this control-flow pattern
 TEST_SECTION_FAIL("cilium-ebpf", "invalid_map_static-el.elf", "xdp", verify_test::VerifyIssueKind::VerifierTypeTracking)
 // register type refinement is too imprecise in this control-flow pattern
-TEST_PROGRAM_FAIL("cilium-ebpf", "loader-clang-14-el.elf", ".text", "global_fn2", 2,
+TEST_PROGRAM_FAIL("cilium-ebpf",
+                  "loader-clang-14-el.elf",
+                  ".text",
+                  "global_fn2",
+                  2,
                   verify_test::VerifyIssueKind::VerifierTypeTracking)
 // register type refinement is too imprecise in this control-flow pattern
 TEST_SECTION_FAIL("cilium-ebpf", "loader-clang-14-el.elf", "other", verify_test::VerifyIssueKind::VerifierTypeTracking)
 // register type refinement is too imprecise in this control-flow pattern
 TEST_SECTION_FAIL("cilium-ebpf", "loader-clang-14-el.elf", "static", verify_test::VerifyIssueKind::VerifierTypeTracking)
 // register type refinement is too imprecise in this control-flow pattern
-TEST_PROGRAM_FAIL("cilium-ebpf", "loader-clang-17-el.elf", ".text", "global_fn2", 2,
+TEST_PROGRAM_FAIL("cilium-ebpf",
+                  "loader-clang-17-el.elf",
+                  ".text",
+                  "global_fn2",
+                  2,
                   verify_test::VerifyIssueKind::VerifierTypeTracking)
 // register type refinement is too imprecise in this control-flow pattern
 TEST_SECTION_FAIL("cilium-ebpf", "loader-clang-17-el.elf", "other", verify_test::VerifyIssueKind::VerifierTypeTracking)
 // register type refinement is too imprecise in this control-flow pattern
 TEST_SECTION_FAIL("cilium-ebpf", "loader-clang-17-el.elf", "static", verify_test::VerifyIssueKind::VerifierTypeTracking)
 // register type refinement is too imprecise in this control-flow pattern
-TEST_PROGRAM_FAIL("cilium-ebpf", "loader-clang-20-el.elf", ".text", "global_fn2", 2,
+TEST_PROGRAM_FAIL("cilium-ebpf",
+                  "loader-clang-20-el.elf",
+                  ".text",
+                  "global_fn2",
+                  2,
                   verify_test::VerifyIssueKind::VerifierTypeTracking)
 // register type refinement is too imprecise in this control-flow pattern
 TEST_SECTION_FAIL("cilium-ebpf", "loader-clang-20-el.elf", "other", verify_test::VerifyIssueKind::VerifierTypeTracking)
 // register type refinement is too imprecise in this control-flow pattern
 TEST_SECTION_FAIL("cilium-ebpf", "loader-clang-20-el.elf", "static", verify_test::VerifyIssueKind::VerifierTypeTracking)
 // register type refinement is too imprecise in this control-flow pattern
-TEST_PROGRAM_FAIL("cilium-ebpf", "loader-el.elf", ".text", "global_fn2", 2,
+TEST_PROGRAM_FAIL("cilium-ebpf",
+                  "loader-el.elf",
+                  ".text",
+                  "global_fn2",
+                  2,
                   verify_test::VerifyIssueKind::VerifierTypeTracking)
 // register type refinement is too imprecise in this control-flow pattern
 TEST_SECTION_FAIL("cilium-ebpf", "loader-el.elf", "other", verify_test::VerifyIssueKind::VerifierTypeTracking)
 // register type refinement is too imprecise in this control-flow pattern
 TEST_SECTION_FAIL("cilium-ebpf", "loader-el.elf", "static", verify_test::VerifyIssueKind::VerifierTypeTracking)
 // register type refinement is too imprecise in this control-flow pattern
-TEST_PROGRAM_FAIL("cilium-ebpf", "loader_nobtf-el.elf", ".text", "global_fn2", 2,
+TEST_PROGRAM_FAIL("cilium-ebpf",
+                  "loader_nobtf-el.elf",
+                  ".text",
+                  "global_fn2",
+                  2,
                   verify_test::VerifyIssueKind::VerifierTypeTracking)
 // register type refinement is too imprecise in this control-flow pattern
 TEST_SECTION_FAIL("cilium-ebpf", "loader_nobtf-el.elf", "other", verify_test::VerifyIssueKind::VerifierTypeTracking)
@@ -163,17 +183,37 @@ TEST_SECTION_FAIL("cilium-ebpf", "subprog_reloc-el.elf", "xdp", verify_test::Ver
 
 // VerifierPointerArithmetic:
 // pointer-arithmetic typing is too restrictive in this pattern
-TEST_PROGRAM_FAIL("cilium-ebpf", "loader-clang-14-el.elf", ".text", "global_fn", 2,
+TEST_PROGRAM_FAIL("cilium-ebpf",
+                  "loader-clang-14-el.elf",
+                  ".text",
+                  "global_fn",
+                  2,
                   verify_test::VerifyIssueKind::VerifierPointerArithmetic)
 // pointer-arithmetic typing is too restrictive in this pattern
-TEST_PROGRAM_FAIL("cilium-ebpf", "loader-clang-17-el.elf", ".text", "global_fn", 2,
+TEST_PROGRAM_FAIL("cilium-ebpf",
+                  "loader-clang-17-el.elf",
+                  ".text",
+                  "global_fn",
+                  2,
                   verify_test::VerifyIssueKind::VerifierPointerArithmetic)
 // pointer-arithmetic typing is too restrictive in this pattern
-TEST_PROGRAM_FAIL("cilium-ebpf", "loader-clang-20-el.elf", ".text", "global_fn", 2,
+TEST_PROGRAM_FAIL("cilium-ebpf",
+                  "loader-clang-20-el.elf",
+                  ".text",
+                  "global_fn",
+                  2,
                   verify_test::VerifyIssueKind::VerifierPointerArithmetic)
 // pointer-arithmetic typing is too restrictive in this pattern
-TEST_PROGRAM_FAIL("cilium-ebpf", "loader-el.elf", ".text", "global_fn", 2,
+TEST_PROGRAM_FAIL("cilium-ebpf",
+                  "loader-el.elf",
+                  ".text",
+                  "global_fn",
+                  2,
                   verify_test::VerifyIssueKind::VerifierPointerArithmetic)
 // pointer-arithmetic typing is too restrictive in this pattern
-TEST_PROGRAM_FAIL("cilium-ebpf", "loader_nobtf-el.elf", ".text", "global_fn", 2,
+TEST_PROGRAM_FAIL("cilium-ebpf",
+                  "loader_nobtf-el.elf",
+                  ".text",
+                  "global_fn",
+                  2,
                   verify_test::VerifyIssueKind::VerifierPointerArithmetic)

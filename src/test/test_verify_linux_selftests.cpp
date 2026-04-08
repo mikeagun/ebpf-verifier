@@ -63,108 +63,226 @@ TEST_PROGRAM("linux-selftests", "test_spin_lock.o", "tc", "lock_static_subprog_u
 // register type refinement is too imprecise in this control-flow pattern
 TEST_SECTION_FAIL("linux-selftests", "bloom_filter_map.o", ".text", verify_test::VerifyIssueKind::VerifierTypeTracking)
 // register type refinement is too imprecise in this control-flow pattern
-TEST_PROGRAM_FAIL("linux-selftests", "bloom_filter_map.o", "fentry/__x64_sys_getpgid", "check_bloom", 2,
+TEST_PROGRAM_FAIL("linux-selftests",
+                  "bloom_filter_map.o",
+                  "fentry/__x64_sys_getpgid",
+                  "check_bloom",
+                  2,
                   verify_test::VerifyIssueKind::VerifierTypeTracking)
 // register type refinement is too imprecise in this control-flow pattern
-TEST_PROGRAM_FAIL("linux-selftests", "bloom_filter_map.o", "fentry/__x64_sys_getpgid", "inner_map", 2,
+TEST_PROGRAM_FAIL("linux-selftests",
+                  "bloom_filter_map.o",
+                  "fentry/__x64_sys_getpgid",
+                  "inner_map",
+                  2,
                   verify_test::VerifyIssueKind::VerifierTypeTracking)
 // register type refinement is too imprecise in this control-flow pattern
-TEST_SECTION_FAIL("linux-selftests", "freplace_get_constant.o", "freplace/get_constant",
+TEST_SECTION_FAIL("linux-selftests",
+                  "freplace_get_constant.o",
+                  "freplace/get_constant",
                   verify_test::VerifyIssueKind::VerifierTypeTracking)
 // Type precision lost through loop join: r3 loaded from stack loses type after widening
-TEST_SECTION_FAIL("linux-selftests", "loop3.o", "raw_tracepoint/consume_skb",
+TEST_SECTION_FAIL("linux-selftests",
+                  "loop3.o",
+                  "raw_tracepoint/consume_skb",
                   verify_test::VerifyIssueKind::VerifierTypeTracking)
 // register type refinement is too imprecise in this control-flow pattern
-TEST_PROGRAM_FAIL("linux-selftests", "map_ptr_kern.o", ".text", "check", 19,
+TEST_PROGRAM_FAIL("linux-selftests",
+                  "map_ptr_kern.o",
+                  ".text",
+                  "check",
+                  19,
                   verify_test::VerifyIssueKind::VerifierTypeTracking)
 // register type refinement is too imprecise in this control-flow pattern
-TEST_PROGRAM_FAIL("linux-selftests", "map_ptr_kern.o", ".text", "check_array_of_maps", 19,
+TEST_PROGRAM_FAIL("linux-selftests",
+                  "map_ptr_kern.o",
+                  ".text",
+                  "check_array_of_maps",
+                  19,
                   verify_test::VerifyIssueKind::VerifierTypeTracking)
 // register type refinement is too imprecise in this control-flow pattern
-TEST_PROGRAM_FAIL("linux-selftests", "map_ptr_kern.o", ".text", "check_cgroup_storage", 19,
+TEST_PROGRAM_FAIL("linux-selftests",
+                  "map_ptr_kern.o",
+                  ".text",
+                  "check_cgroup_storage",
+                  19,
                   verify_test::VerifyIssueKind::VerifierTypeTracking)
 // register type refinement is too imprecise in this control-flow pattern
-TEST_PROGRAM_FAIL("linux-selftests", "map_ptr_kern.o", ".text", "check_cpumap", 19,
+TEST_PROGRAM_FAIL("linux-selftests",
+                  "map_ptr_kern.o",
+                  ".text",
+                  "check_cpumap",
+                  19,
                   verify_test::VerifyIssueKind::VerifierTypeTracking)
 // register type refinement is too imprecise in this control-flow pattern
-TEST_PROGRAM_FAIL("linux-selftests", "map_ptr_kern.o", ".text", "check_default_noinline", 19,
+TEST_PROGRAM_FAIL("linux-selftests",
+                  "map_ptr_kern.o",
+                  ".text",
+                  "check_default_noinline",
+                  19,
                   verify_test::VerifyIssueKind::VerifierTypeTracking)
 // register type refinement is too imprecise in this control-flow pattern
-TEST_PROGRAM_FAIL("linux-selftests", "map_ptr_kern.o", ".text", "check_devmap", 19,
+TEST_PROGRAM_FAIL("linux-selftests",
+                  "map_ptr_kern.o",
+                  ".text",
+                  "check_devmap",
+                  19,
                   verify_test::VerifyIssueKind::VerifierTypeTracking)
 // register type refinement is too imprecise in this control-flow pattern
-TEST_PROGRAM_FAIL("linux-selftests", "map_ptr_kern.o", ".text", "check_devmap_hash", 19,
+TEST_PROGRAM_FAIL("linux-selftests",
+                  "map_ptr_kern.o",
+                  ".text",
+                  "check_devmap_hash",
+                  19,
                   verify_test::VerifyIssueKind::VerifierTypeTracking)
 // register type refinement is too imprecise in this control-flow pattern
-TEST_PROGRAM_FAIL("linux-selftests", "map_ptr_kern.o", ".text", "check_hash_of_maps", 19,
+TEST_PROGRAM_FAIL("linux-selftests",
+                  "map_ptr_kern.o",
+                  ".text",
+                  "check_hash_of_maps",
+                  19,
                   verify_test::VerifyIssueKind::VerifierTypeTracking)
 // register type refinement is too imprecise in this control-flow pattern
-TEST_PROGRAM_FAIL("linux-selftests", "map_ptr_kern.o", ".text", "check_lpm_trie", 19,
+TEST_PROGRAM_FAIL("linux-selftests",
+                  "map_ptr_kern.o",
+                  ".text",
+                  "check_lpm_trie",
+                  19,
                   verify_test::VerifyIssueKind::VerifierTypeTracking)
 // register type refinement is too imprecise in this control-flow pattern
-TEST_PROGRAM_FAIL("linux-selftests", "map_ptr_kern.o", ".text", "check_lru_percpu_hash", 19,
+TEST_PROGRAM_FAIL("linux-selftests",
+                  "map_ptr_kern.o",
+                  ".text",
+                  "check_lru_percpu_hash",
+                  19,
                   verify_test::VerifyIssueKind::VerifierTypeTracking)
 // register type refinement is too imprecise in this control-flow pattern
-TEST_PROGRAM_FAIL("linux-selftests", "map_ptr_kern.o", ".text", "check_percpu_cgroup_storage", 19,
+TEST_PROGRAM_FAIL("linux-selftests",
+                  "map_ptr_kern.o",
+                  ".text",
+                  "check_percpu_cgroup_storage",
+                  19,
                   verify_test::VerifyIssueKind::VerifierTypeTracking)
 // register type refinement is too imprecise in this control-flow pattern
-TEST_PROGRAM_FAIL("linux-selftests", "map_ptr_kern.o", ".text", "check_queue", 19,
+TEST_PROGRAM_FAIL("linux-selftests",
+                  "map_ptr_kern.o",
+                  ".text",
+                  "check_queue",
+                  19,
                   verify_test::VerifyIssueKind::VerifierTypeTracking)
 // register type refinement is too imprecise in this control-flow pattern
-TEST_PROGRAM_FAIL("linux-selftests", "map_ptr_kern.o", ".text", "check_reuseport_sockarray", 19,
+TEST_PROGRAM_FAIL("linux-selftests",
+                  "map_ptr_kern.o",
+                  ".text",
+                  "check_reuseport_sockarray",
+                  19,
                   verify_test::VerifyIssueKind::VerifierTypeTracking)
 // register type refinement is too imprecise in this control-flow pattern
-TEST_PROGRAM_FAIL("linux-selftests", "map_ptr_kern.o", ".text", "check_ringbuf", 19,
+TEST_PROGRAM_FAIL("linux-selftests",
+                  "map_ptr_kern.o",
+                  ".text",
+                  "check_ringbuf",
+                  19,
                   verify_test::VerifyIssueKind::VerifierTypeTracking)
 // register type refinement is too imprecise in this control-flow pattern
-TEST_PROGRAM_FAIL("linux-selftests", "map_ptr_kern.o", ".text", "check_sk_storage", 19,
+TEST_PROGRAM_FAIL("linux-selftests",
+                  "map_ptr_kern.o",
+                  ".text",
+                  "check_sk_storage",
+                  19,
                   verify_test::VerifyIssueKind::VerifierTypeTracking)
 // register type refinement is too imprecise in this control-flow pattern
-TEST_PROGRAM_FAIL("linux-selftests", "map_ptr_kern.o", ".text", "check_sockhash", 19,
+TEST_PROGRAM_FAIL("linux-selftests",
+                  "map_ptr_kern.o",
+                  ".text",
+                  "check_sockhash",
+                  19,
                   verify_test::VerifyIssueKind::VerifierTypeTracking)
 // register type refinement is too imprecise in this control-flow pattern
-TEST_PROGRAM_FAIL("linux-selftests", "map_ptr_kern.o", ".text", "check_sockmap", 19,
+TEST_PROGRAM_FAIL("linux-selftests",
+                  "map_ptr_kern.o",
+                  ".text",
+                  "check_sockmap",
+                  19,
                   verify_test::VerifyIssueKind::VerifierTypeTracking)
 // register type refinement is too imprecise in this control-flow pattern
-TEST_PROGRAM_FAIL("linux-selftests", "map_ptr_kern.o", ".text", "check_stack", 19,
+TEST_PROGRAM_FAIL("linux-selftests",
+                  "map_ptr_kern.o",
+                  ".text",
+                  "check_stack",
+                  19,
                   verify_test::VerifyIssueKind::VerifierTypeTracking)
 // register type refinement is too imprecise in this control-flow pattern
-TEST_PROGRAM_FAIL("linux-selftests", "map_ptr_kern.o", ".text", "check_xskmap", 19,
+TEST_PROGRAM_FAIL("linux-selftests",
+                  "map_ptr_kern.o",
+                  ".text",
+                  "check_xskmap",
+                  19,
                   verify_test::VerifyIssueKind::VerifierTypeTracking)
 // register type refinement is too imprecise in this control-flow pattern
-TEST_SECTION_FAIL("linux-selftests", "socket_cookie_prog.o", "cgroup/connect6",
+TEST_SECTION_FAIL("linux-selftests",
+                  "socket_cookie_prog.o",
+                  "cgroup/connect6",
                   verify_test::VerifyIssueKind::VerifierTypeTracking)
 // Socket type not tracked through sockops context access
-TEST_SECTION_FAIL("linux-selftests", "socket_cookie_prog.o", "sockops",
+TEST_SECTION_FAIL("linux-selftests",
+                  "socket_cookie_prog.o",
+                  "sockops",
                   verify_test::VerifyIssueKind::VerifierTypeTracking)
 // register type refinement is too imprecise in this control-flow pattern
-TEST_PROGRAM_FAIL("linux-selftests", "test_global_func1.o", ".text", "f2", 4,
+TEST_PROGRAM_FAIL("linux-selftests",
+                  "test_global_func1.o",
+                  ".text",
+                  "f2",
+                  4,
                   verify_test::VerifyIssueKind::VerifierTypeTracking)
 // register type refinement is too imprecise in this control-flow pattern
-TEST_PROGRAM_FAIL("linux-selftests", "test_global_func1.o", ".text", "f3", 4,
+TEST_PROGRAM_FAIL("linux-selftests",
+                  "test_global_func1.o",
+                  ".text",
+                  "f3",
+                  4,
                   verify_test::VerifyIssueKind::VerifierTypeTracking)
 // register type refinement is too imprecise in this control-flow pattern
-TEST_PROGRAM_FAIL("linux-selftests", "test_global_func_args.o", ".text", "bar", 3,
+TEST_PROGRAM_FAIL("linux-selftests",
+                  "test_global_func_args.o",
+                  ".text",
+                  "bar",
+                  3,
                   verify_test::VerifyIssueKind::VerifierTypeTracking)
 // register type refinement is too imprecise in this control-flow pattern
-TEST_PROGRAM_FAIL("linux-selftests", "test_global_func_args.o", ".text", "foo", 3,
+TEST_PROGRAM_FAIL("linux-selftests",
+                  "test_global_func_args.o",
+                  ".text",
+                  "foo",
+                  3,
                   verify_test::VerifyIssueKind::VerifierTypeTracking)
 
 // VerifierBoundsTracking:
 // interval/bounds refinement loses precision for this memory-access proof
-TEST_SECTION_FAIL("linux-selftests", "kfree_skb.o", "fentry/eth_type_trans",
+TEST_SECTION_FAIL("linux-selftests",
+                  "kfree_skb.o",
+                  "fentry/eth_type_trans",
                   verify_test::VerifyIssueKind::VerifierBoundsTracking)
 // interval/bounds refinement loses precision for this memory-access proof
-TEST_SECTION_FAIL("linux-selftests", "kfree_skb.o", "fexit/eth_type_trans",
+TEST_SECTION_FAIL("linux-selftests",
+                  "kfree_skb.o",
+                  "fexit/eth_type_trans",
                   verify_test::VerifyIssueKind::VerifierBoundsTracking)
 // interval/bounds refinement loses precision for this memory-access proof
-TEST_SECTION_FAIL("linux-selftests", "kfree_skb.o", "tp_btf/kfree_skb",
+TEST_SECTION_FAIL("linux-selftests",
+                  "kfree_skb.o",
+                  "tp_btf/kfree_skb",
                   verify_test::VerifyIssueKind::VerifierBoundsTracking)
 // interval/bounds refinement loses precision for this memory-access proof
-TEST_SECTION_FAIL("linux-selftests", "socket_cookie_prog.o", "fexit/inet_stream_connect",
+TEST_SECTION_FAIL("linux-selftests",
+                  "socket_cookie_prog.o",
+                  "fexit/inet_stream_connect",
                   verify_test::VerifyIssueKind::VerifierBoundsTracking)
 
 // VerifierNullability:
 // nullability tracking is too conservative on this path
-TEST_SECTION_FAIL("linux-selftests", "test_spin_lock.o", "cgroup_skb/ingress",
+TEST_SECTION_FAIL("linux-selftests",
+                  "test_spin_lock.o",
+                  "cgroup_skb/ingress",
                   verify_test::VerifyIssueKind::VerifierNullability)
