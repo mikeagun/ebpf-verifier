@@ -78,6 +78,17 @@ std::optional<VerificationError> ebpf_domain_check(const EbpfDomain& dom, const 
     return {};
 }
 
+void ebpf_domain_assume_assertion(EbpfDomain& dom, const Assertion& assertion) {
+    if (const auto* tc = std::get_if<TypeConstraint>(&assertion)) {
+        // Narrow the register's type set to the intersection with the
+        // required types.  This prunes infeasible type branches that
+        // widening may have introduced (e.g., {map_fd, number} narrowed
+        // to {map_fd}), so that subsequent assertions and the instruction
+        // transformer see a tighter type.
+        dom.assume_type_constraint(tc->reg, to_typeset(tc->types));
+    }
+}
+
 void EbpfChecker::check_access_stack(const LinearExpression& lb, const LinearExpression& ub) const {
     using namespace dsl_syntax;
     require_value(dom.state, reg_pack(R10_STACK_POINTER).stack_offset - EBPF_SUBPROGRAM_STACK_SIZE <= lb,
@@ -160,8 +171,22 @@ void EbpfChecker::operator()(const ValidStore& s) const {
 }
 
 void EbpfChecker::operator()(const TypeConstraint& s) const {
-    if (!dom.state.is_in_group(s.reg, to_typeset(s.types))) {
-        throw_fail("Invalid type");
+    const TypeSet required = to_typeset(s.types);
+    if (!dom.state.is_in_group(s.reg, required)) {
+        // The register's type set is not a subset of the required types.
+        // Check if there is ANY overlap — if the register may have at least
+        // one of the required types, the check passes (the domain will be
+        // narrowed by ebpf_domain_assume_assertion before transformation).
+        bool any_overlap = false;
+        for (const TypeEncoding te : dom.state.iterate_types(s.reg)) {
+            if (required.contains(te)) {
+                any_overlap = true;
+                break;
+            }
+        }
+        if (!any_overlap) {
+            throw_fail("Invalid type");
+        }
     }
 }
 

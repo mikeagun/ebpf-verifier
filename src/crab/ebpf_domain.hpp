@@ -33,6 +33,7 @@ std::string to_string(const VerificationError& error);
 void ebpf_domain_transform(EbpfDomain& inv, const Instruction& ins);
 std::optional<VerificationError> ebpf_domain_check(const EbpfDomain& dom, const Assertion& assertion,
                                                    const Label& where);
+void ebpf_domain_assume_assertion(EbpfDomain& dom, const Assertion& assertion);
 
 // TODO: make this an explicit instruction
 void ebpf_domain_initialize_loop_counter(EbpfDomain& dom, const Label& label);
@@ -79,6 +80,15 @@ class EbpfDomain final {
     void initialize_packet();
 
     StringInvariant to_set() const;
+
+    /// Restrict a register's type set to the intersection with the given mask.
+    /// Used by assertion-based narrowing to prune infeasible type branches
+    /// before an instruction that requires specific types.
+    void restrict_type(const Reg& reg, TypeSet mask);
+
+    /// Narrow a register to only the types in the given mask, using
+    /// restrict_type to prune infeasible type branches.
+    void assume_type_constraint(const Reg& reg, TypeSet required);
 
     /// Check if a register may be a stack pointer and return its stack offset if known.
     /// Used by failure slicing to detect stack accesses through derived pointers.

@@ -2725,9 +2725,7 @@
                   "status": "expected_failure"
                 },
                 "tail_ipv4_host_policy_ingress": {
-                  "kind": "VerifierTypeTracking",
-                  "reason": "register type refinement is too imprecise in this control-flow pattern",
-                  "status": "expected_failure"
+                  "status": "pass"
                 },
                 "tail_ipv6_host_policy_ingress": {
                   "kind": "VerifierTypeTracking",
@@ -2935,9 +2933,7 @@
                   "status": "expected_failure"
                 },
                 "tail_ipv4_to_endpoint": {
-                  "kind": "VerifierTypeTracking",
-                  "reason": "register type refinement is too imprecise in this control-flow pattern",
-                  "status": "expected_failure"
+                  "status": "pass"
                 },
                 "tail_ipv6_policy": {
                   "kind": "VerifierTypeTracking",
@@ -2945,9 +2941,7 @@
                   "status": "expected_failure"
                 },
                 "tail_ipv6_to_endpoint": {
-                  "kind": "VerifierTypeTracking",
-                  "reason": "register type refinement is too imprecise in this control-flow pattern",
-                  "status": "expected_failure"
+                  "status": "pass"
                 },
                 "tail_nodeport_nat_egress_ipv4": {
                   "kind": "VerifierStackInitialization",
@@ -3126,9 +3120,7 @@
                   "status": "expected_failure"
                 },
                 "tail_handle_snat_fwd_ipv6": {
-                  "kind": "VerifierTypeTracking",
-                  "reason": "register type refinement is too imprecise in this control-flow pattern",
-                  "status": "expected_failure"
+                  "status": "pass"
                 },
                 "tail_mcast_ep_delivery": {
                   "kind": "VerifierTypeTracking",
@@ -9208,9 +9200,7 @@
                 "status": "expected_failure"
               },
               "xdp_prog": {
-                "kind": "VerifierTypeTracking",
-                "reason": "register type refinement is too imprecise in this control-flow pattern",
-                "status": "expected_failure"
+                "status": "pass"
               }
             }
           }

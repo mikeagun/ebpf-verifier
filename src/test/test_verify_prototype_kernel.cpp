@@ -41,6 +41,4 @@ TEST_SECTION("prototype-kernel", "xdp_vlan01_kern.o", "xdp_vlan_remove_outer2")
 // register type refinement is too imprecise in this control-flow pattern
 TEST_SECTION_FAIL("prototype-kernel", "xdp_ddos01_blacklist_kern.o", ".text",
                   verify_test::VerifyIssueKind::VerifierTypeTracking)
-// register type refinement is too imprecise in this control-flow pattern
-TEST_SECTION_FAIL("prototype-kernel", "xdp_ddos01_blacklist_kern.o", "xdp_prog",
-                  verify_test::VerifyIssueKind::VerifierTypeTracking)
+TEST_SECTION("prototype-kernel", "xdp_ddos01_blacklist_kern.o", "xdp_prog")

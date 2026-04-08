@@ -13,6 +13,7 @@ TEST_PROGRAM("cilium-core", "bpf_host.o", "tc/tail", "tail_handle_nat_fwd_ipv4",
 TEST_PROGRAM("cilium-core", "bpf_host.o", "tc/tail", "tail_handle_nat_fwd_ipv6", 28)
 TEST_PROGRAM("cilium-core", "bpf_host.o", "tc/tail", "tail_icmp6_handle_ns", 28)
 TEST_PROGRAM("cilium-core", "bpf_host.o", "tc/tail", "tail_icmp6_send_time_exceeded", 28)
+TEST_PROGRAM("cilium-core", "bpf_host.o", "tc/tail", "tail_ipv4_host_policy_ingress", 28)
 TEST_PROGRAM("cilium-core", "bpf_host.o", "tc/tail", "tail_nodeport_ipv4_dsr", 28)
 TEST_PROGRAM("cilium-core", "bpf_host.o", "tc/tail", "tail_nodeport_ipv6_dsr", 28)
 TEST_PROGRAM("cilium-core", "bpf_host.o", "tc/tail", "tail_nodeport_nat_egress_ipv6", 28)
@@ -32,9 +33,11 @@ TEST_PROGRAM("cilium-core", "bpf_lxc.o", "tc/tail", "tail_icmp6_send_time_exceed
 TEST_PROGRAM("cilium-core", "bpf_lxc.o", "tc/tail", "tail_ipv4_ct_egress", 30)
 TEST_PROGRAM("cilium-core", "bpf_lxc.o", "tc/tail", "tail_ipv4_ct_ingress", 30)
 TEST_PROGRAM("cilium-core", "bpf_lxc.o", "tc/tail", "tail_ipv4_ct_ingress_policy_only", 30)
+TEST_PROGRAM("cilium-core", "bpf_lxc.o", "tc/tail", "tail_ipv4_to_endpoint", 30)
 TEST_PROGRAM("cilium-core", "bpf_lxc.o", "tc/tail", "tail_ipv6_ct_egress", 30)
 TEST_PROGRAM("cilium-core", "bpf_lxc.o", "tc/tail", "tail_ipv6_ct_ingress", 30)
 TEST_PROGRAM("cilium-core", "bpf_lxc.o", "tc/tail", "tail_ipv6_ct_ingress_policy_only", 30)
+TEST_PROGRAM("cilium-core", "bpf_lxc.o", "tc/tail", "tail_ipv6_to_endpoint", 30)
 TEST_PROGRAM("cilium-core", "bpf_lxc.o", "tc/tail", "tail_nodeport_ipv4_dsr", 30)
 TEST_PROGRAM("cilium-core", "bpf_lxc.o", "tc/tail", "tail_nodeport_ipv6_dsr", 30)
 TEST_PROGRAM("cilium-core", "bpf_lxc.o", "tc/tail", "tail_nodeport_nat_egress_ipv6", 30)
@@ -53,6 +56,7 @@ TEST_PROGRAM("cilium-core", "bpf_overlay.o", "tc/tail", "tail_handle_arp", 19)
 TEST_PROGRAM("cilium-core", "bpf_overlay.o", "tc/tail", "tail_handle_ipv4", 19)
 TEST_PROGRAM("cilium-core", "bpf_overlay.o", "tc/tail", "tail_handle_nat_fwd_ipv4", 19)
 TEST_PROGRAM("cilium-core", "bpf_overlay.o", "tc/tail", "tail_handle_nat_fwd_ipv6", 19)
+TEST_PROGRAM("cilium-core", "bpf_overlay.o", "tc/tail", "tail_handle_snat_fwd_ipv6", 19)
 TEST_PROGRAM("cilium-core", "bpf_overlay.o", "tc/tail", "tail_icmp6_send_time_exceeded", 19)
 TEST_PROGRAM("cilium-core", "bpf_overlay.o", "tc/tail", "tail_nodeport_ipv4_dsr", 19)
 TEST_PROGRAM("cilium-core", "bpf_overlay.o", "tc/tail", "tail_nodeport_ipv6_dsr", 19)
@@ -114,9 +118,6 @@ TEST_PROGRAM_FAIL("cilium-core", "bpf_host.o", "tc/tail", "tail_handle_ipv6_from
 TEST_PROGRAM_FAIL("cilium-core", "bpf_host.o", "tc/tail", "tail_handle_snat_fwd_ipv4", 28,
                   verify_test::VerifyIssueKind::VerifierTypeTracking)
 // register type refinement is too imprecise in this control-flow pattern
-TEST_PROGRAM_FAIL("cilium-core", "bpf_host.o", "tc/tail", "tail_ipv4_host_policy_ingress", 28,
-                  verify_test::VerifyIssueKind::VerifierTypeTracking)
-// register type refinement is too imprecise in this control-flow pattern
 TEST_PROGRAM_FAIL("cilium-core", "bpf_host.o", "tc/tail", "tail_ipv6_host_policy_ingress", 28,
                   verify_test::VerifyIssueKind::VerifierTypeTracking)
 // register type refinement is too imprecise in this control-flow pattern
@@ -140,13 +141,7 @@ TEST_PROGRAM_FAIL("cilium-core", "bpf_lxc.o", "tc/tail", "tail_handle_ipv6_cont"
 TEST_PROGRAM_FAIL("cilium-core", "bpf_lxc.o", "tc/tail", "tail_ipv4_policy", 30,
                   verify_test::VerifyIssueKind::VerifierTypeTracking)
 // register type refinement is too imprecise in this control-flow pattern
-TEST_PROGRAM_FAIL("cilium-core", "bpf_lxc.o", "tc/tail", "tail_ipv4_to_endpoint", 30,
-                  verify_test::VerifyIssueKind::VerifierTypeTracking)
-// register type refinement is too imprecise in this control-flow pattern
 TEST_PROGRAM_FAIL("cilium-core", "bpf_lxc.o", "tc/tail", "tail_ipv6_policy", 30,
-                  verify_test::VerifyIssueKind::VerifierTypeTracking)
-// register type refinement is too imprecise in this control-flow pattern
-TEST_PROGRAM_FAIL("cilium-core", "bpf_lxc.o", "tc/tail", "tail_ipv6_to_endpoint", 30,
                   verify_test::VerifyIssueKind::VerifierTypeTracking)
 // register type refinement is too imprecise in this control-flow pattern
 TEST_PROGRAM_FAIL("cilium-core", "bpf_lxc.o", "tc/tail", "tail_nodeport_nat_ingress_ipv4", 30,
@@ -165,9 +160,6 @@ TEST_PROGRAM_FAIL("cilium-core", "bpf_overlay.o", "tc/tail", "tail_handle_ipv6",
                   verify_test::VerifyIssueKind::VerifierTypeTracking)
 // register type refinement is too imprecise in this control-flow pattern
 TEST_PROGRAM_FAIL("cilium-core", "bpf_overlay.o", "tc/tail", "tail_handle_snat_fwd_ipv4", 19,
-                  verify_test::VerifyIssueKind::VerifierTypeTracking)
-// register type refinement is too imprecise in this control-flow pattern
-TEST_PROGRAM_FAIL("cilium-core", "bpf_overlay.o", "tc/tail", "tail_handle_snat_fwd_ipv6", 19,
                   verify_test::VerifyIssueKind::VerifierTypeTracking)
 // register type refinement is too imprecise in this control-flow pattern
 TEST_PROGRAM_FAIL("cilium-core", "bpf_overlay.o", "tc/tail", "tail_mcast_ep_delivery", 19,

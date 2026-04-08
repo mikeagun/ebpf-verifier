@@ -1,0 +1,67 @@
+# Copyright (c) Prevail Verifier contributors.
+# SPDX-License-Identifier: MIT
+
+# Tests for assertion-based type narrowing.
+#
+# When a register's type set has elements beyond the required types
+# (e.g., {map_fd, number} when map_fd is required), the assertion
+# pipeline narrows the type to the intersection before transformation.
+# This recovers precision lost by widening or imprecise joins.
+---
+test-case: map_fd narrowed from union type at helper call
+
+pre: ["r1.type in {map_fd, number}", "r1.map_fd=1",
+      "r2.type=stack", "r2.stack_offset=504",
+      "r10.type=stack", "r10.stack_offset=512",
+      "s[504...511].type=number"]
+
+code:
+  <start>: |
+    call 1
+
+post:
+  - r0.shared_offset=0
+  - r0.shared_region_size=4
+  - r0.svalue=[0, 2147418112]
+  - r0.type=shared
+  - r0.uvalue=r0.svalue
+  - r10.stack_offset=512
+  - r10.type=stack
+  - s[504...511].type=number
+
+messages: []
+---
+test-case: shared narrowed from union type at dereference
+
+pre: ["r1.type in {shared, number}", "r1.shared_offset=0", "r1.shared_region_size=8",
+      "r1.svalue=[1, 2147418112]", "r1.uvalue=r1.svalue"]
+
+code:
+  <start>: |
+    r0 = *(u32 *)(r1 + 0)
+
+post:
+  - r0.type=number
+  - r1.shared_offset=0
+  - r1.shared_region_size=8
+  - r1.svalue=[1, 2147418112]
+  - r1.type=shared
+  - r1.uvalue=r1.svalue
+
+messages: []
+---
+test-case: no overlap between register type and required type still rejects
+
+pre: ["r1.type=number",
+      "r2.type=stack", "r2.stack_offset=504",
+      "r10.type=stack", "r10.stack_offset=512",
+      "s[504...511].type=number"]
+
+code:
+  <start>: |
+    call 1
+
+post: []
+
+messages:
+  - "0: Invalid type (r1.type == map_fd)"

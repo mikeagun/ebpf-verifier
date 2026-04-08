@@ -86,6 +86,9 @@ class InterleavedFwdFixpointIterator final {
                     set_error(label, std::move(*error));
                     return;
                 }
+                // Narrow the type set to match assertion requirements
+                // before subsequent assertions and transformation.
+                ebpf_domain_assume_assertion(pre, assertion);
             }
         }
         ebpf_domain_transform(pre, ins);

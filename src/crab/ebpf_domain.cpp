@@ -21,6 +21,24 @@ namespace prevail {
 
 StringInvariant EbpfDomain::to_set() const { return state.to_set() + stack.to_set(); }
 
+void EbpfDomain::restrict_type(const Reg& reg, const TypeSet mask) {
+    state.types.restrict_to(reg_type(reg), mask);
+    if (state.types.is_bottom()) {
+        set_to_bottom();
+    }
+}
+
+void EbpfDomain::assume_type_constraint(const Reg& reg, const TypeSet required) {
+    if (state.is_in_group(reg, required)) {
+        return; // Already satisfies the constraint, no narrowing needed.
+    }
+    // The register's type set has elements outside `required`.  Restrict to
+    // the intersection — this prunes infeasible type branches that widening
+    // may have introduced, allowing subsequent assertions and the instruction
+    // transformer to see a tighter type.
+    restrict_type(reg, required);
+}
+
 std::optional<int64_t> EbpfDomain::get_stack_offset(const Reg& reg) const {
     // Only return an offset when the register is *definitely* a stack pointer,
     // not just possibly one. This ensures we don't misclassify memory deps.
